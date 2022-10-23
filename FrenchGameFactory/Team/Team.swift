@@ -18,14 +18,14 @@ class Team {
                 pseudo = pseudoData
                 if playerPseudo.contains(pseudo) {
                     print("This pseudo \(pseudo) is already use, please choose an another")
-                } else {
                     Player1Pseudo();
+                } else {
                     playerPseudo.append(pseudo)
                     print("Welcome \(pseudo) !")
                 }
             }
         } while pseudo == ""
-        return pseudo
+        return ""
     }
     
     func Player2Pseudo() -> String {
@@ -36,14 +36,14 @@ class Team {
                 pseudo = pseudoData
                 if playerPseudo.contains(pseudo) {
                     print("This pseudo \(pseudo) is already use, please choose an another")
-                } else {
                     Player2Pseudo();
+                } else {
                     playerPseudo.append(pseudo)
                     print("Welcome \(pseudo) !")
                 }
             }
         } while pseudo == ""
-        return pseudo
+        return ""
     }
     
     func chooseYourTeam() {
@@ -55,3 +55,5 @@ class Team {
               + "\n5.🗡 a Rogue with 4 life points. His weapons is two Daggers which inflicts 2 points of damage. With his talent the rogue use his second dagger to inflict 2 additional damage points at his opponent. " )
     }
 }
+
+var team = Team( )
