@@ -7,7 +7,8 @@
 
 import Foundation
 
-print(team.Player1Pseudo())
-print(team.Player2Pseudo())
-print(team.chooseYourTeam())
+//print(team.Player1Pseudo())
+//print(team.Player2Pseudo())
+//print(team.chooseYourCharacters())
+print(team.createYourTeam())
 
