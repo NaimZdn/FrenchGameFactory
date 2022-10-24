@@ -7,9 +7,7 @@
 
 import Foundation
 class Druid: Characters{
-    init() {
-        super.init(className: "Druid", characterHealth: 6, weaponName: "Stick", weaponDamage: 1, talent: 1)
+    init(characterName: String) {
+        super.init(className: "Druid", characterName: characterName, characterHealth: 6, weaponName: "Stick", weaponDamage: 1, talent: 1)
     }
 }
-var druid = Druid()
-

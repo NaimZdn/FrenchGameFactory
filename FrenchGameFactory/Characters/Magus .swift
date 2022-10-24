@@ -7,8 +7,7 @@
 
 import Foundation
 class Magus: Characters {
-    init() {
-        super.init(className: "Magus", characterHealth: 4, weaponName: "Power", weaponDamage: 2.5, talent: 0.5)
+    init(characterName: String) {
+        super.init(className: "Magus",characterName: characterName, characterHealth: 4, weaponName: "Power", weaponDamage: 2.5, talent: 0.5)
     }
 }
-var magus = Magus()

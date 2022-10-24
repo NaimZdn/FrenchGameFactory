@@ -8,9 +8,7 @@
 import Foundation
 
 class Warrior: Characters {
-    init() {
-        super.init(className: "Warrior", characterHealth: 10, weaponName: "Sword", weaponDamage: 1, talent: -0.5)
+    init(characterName: String) {
+        super.init(className: "Warrior",characterName: characterName, characterHealth: 10, weaponName: "Sword", weaponDamage: 1, talent: -0.5)
     }
 }
-
-var warrior = Warrior()

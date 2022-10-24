@@ -7,9 +7,7 @@
 
 import Foundation
 class Rogue: Characters{
-    init(){
-        super.init(className: "Rogue", characterHealth: 4, weaponName: "Dagger", weaponDamage: 2, talent: 2)
+    init(characterName: String){
+        super.init(className: "Rogue", characterName: characterName, characterHealth: 4, weaponName: "Dagger", weaponDamage: 2, talent: 2)
     }
 }
-
-var rogue = Rogue()
