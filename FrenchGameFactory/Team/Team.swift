@@ -12,59 +12,41 @@ import Foundation
 //var teamComposition: [Int: Characters]();
 
 class Team {
-    var playerPseudo: [String] = [];
     var teamChoice: [Int] = []
+    var teamComposition: [Int:Characters] = [:]
     var charactersDescription = [warrior.characterDescription, magus.characterDescription, paladin.characterDescription, druid.characterDescription, rogue.characterDescription]
-    
-    
-    func Player1Pseudo() -> String {
-        var pseudo = ""
-        repeat {
-            print("Please choose your Pseudo : ")
-            if let pseudoData = readLine() {
-                pseudo = pseudoData
-                if playerPseudo.contains(pseudo) {
-                    print("This pseudo \(pseudo) is already use, please choose an another")
-                    Player1Pseudo();
-                } else {
-                    playerPseudo.append(pseudo)
-                    print("Welcome \(pseudo) !")
-                }
-            }
-        } while pseudo == ""
-        return ""
-    }
-    
-    func Player2Pseudo() -> String {
-        var pseudo = ""
-        repeat {
-            print("Please choose your Pseudo : ")
-            if let pseudoData = readLine() {
-                pseudo = pseudoData
-                if playerPseudo.contains(pseudo) {
-                    print("This pseudo \(pseudo) is already use, please choose an another")
-                    Player2Pseudo();
-                } else {
-                    playerPseudo.append(pseudo)
-                    print("Welcome \(pseudo) !")
-                }
-            }
-        } while pseudo == ""
-        return ""
-    }
+    var allCharactersName: [String] = [];
     
     func chooseYourCharacters() {
         print("Please choose 3 characters for the battle : ")
         for description in charactersDescription {
             print(description)
         }
-        
     }
-
-        func createYourTeam() {
-        var teamComposition: [Int:Characters] = [:]
+    
+    func chooseCharacterName() -> String {
+        var name = ""
+        repeat {
+            print("Please choose a name for your character : ")
+            if let nameData = readLine() {
+                name = nameData
+                if allCharactersName.contains(name) {
+                    print("This name \(name) is already use, please choose an another")
+                    return chooseCharacterName();
+                    
+                } else {
+                    allCharactersName.append(name)
+                    print("Hmm \(name)... that's a good name !")
+                    
+                }
+            }
+        } while name == ""
+        return name
+    }
+    
+    func createYourTeam() {
         
-        for _ in 0...2 {
+        if teamChoice.count < 3  {
             var yourChoice = 0
             repeat {
                 chooseYourCharacters()
@@ -75,21 +57,21 @@ class Team {
                         print("You must enter a valid number !")
                     }
                 }
-                if yourChoice > 5 && yourChoice <= 0 {
+                if yourChoice > 5 || yourChoice <= 0 {
                     print("Error, choose a number associated at one of theese 5 characters")
                 }
-            } while yourChoice > 5 && yourChoice <= 0
+            } while yourChoice > 5 || yourChoice <= 0
             switch yourChoice {
             case 1:
                 if teamChoice.contains(1) {
                     print("You already choose this character, please choose an another")
                     createYourTeam()
                 } else {
-                    let characterName = ChooseCharacterName.checkName.characterName()
                     print("You choose a Warrior 🛡 ");
                     charactersDescription.removeAll{$0 == warrior.characterDescription}
-                    teamComposition[1] = Warrior(characterName: characterName)
+                    teamComposition[1] = Warrior(characterName: chooseCharacterName())
                     teamChoice.append(1)
+                    createYourTeam()
                 }
             case 2:
                 if teamChoice.contains(2) {
@@ -97,7 +79,11 @@ class Team {
                     createYourTeam()
                 } else {
                     print("You choose a Magus 🧙‍♂️ ");
+                    charactersDescription.removeAll{$0 == magus.characterDescription}
+                    teamComposition[2] = Magus(characterName: chooseCharacterName())
+                    print(player1Team.teamComposition)
                     teamChoice.append(2)
+                    createYourTeam()
                 }
             case 3:
                 if teamChoice.contains(3) {
@@ -105,7 +91,10 @@ class Team {
                     createYourTeam()
                 } else {
                     print("You choose a Paladin 🏇 ");
+                    charactersDescription.removeAll{$0 == paladin.characterDescription}
+                    teamComposition[3] = Paladin(characterName: chooseCharacterName())
                     teamChoice.append(3)
+                    createYourTeam()
                 }
             case 4:
                 if teamChoice.contains(4) {
@@ -113,7 +102,10 @@ class Team {
                     createYourTeam()
                 } else {
                     print("You choose a Druid 🦌 ");
+                    charactersDescription.removeAll{$0 == druid.characterDescription}
+                    teamComposition[4] = Druid(characterName: chooseCharacterName())
                     teamChoice.append(4)
+                    createYourTeam()
                 }
             case 5:
                 if teamChoice.contains(5) {
@@ -121,17 +113,29 @@ class Team {
                     createYourTeam()
                 } else {
                     print("You choose a Rogue 🗡 ");
+                    charactersDescription.removeAll{$0 == rogue.characterDescription}
+                    teamComposition[5] = Rogue(characterName: chooseCharacterName())
                     teamChoice.append(5)
+                    createYourTeam()
                 }
             default:
-                print("Please choose a character for your team")
-                
-                
+                print(teamComposition)
             }
-           
+        } else if teamChoice.count >= 3 {
             
+            print(teamChoice)
+            print("You're 3 characters \(teamComposition)")
+            print("fin du programme")
+        }
+    }
+    func displayPlayersTeams() {
+        print("Let's start the game, the battle is between the first player :  \(player.playerPseudo[0]) and the second player : \(player.playerPseudo[1])")
+        
+        for (key, value) in player1Team.teamComposition {
+            print("\n\(key). A \(value.className) nammed \(value.characterName) that own a \(value.weaponName) and have \(value.characterHealth) life points.")
         }
     }
 }
-
 var team = Team()
+var player1Team = Team()
+var player2Team = Team()
