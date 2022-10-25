@@ -7,9 +7,9 @@
 
 import Foundation
 
-
-//print(team.Player1Pseudo())
-//print(team.Player2Pseudo())
-//print(team.chooseYourCharacters())
-print(team.createYourTeam())
-
+game.startingMenu()
+//print(player.player1Pseudo())
+//print(player.player2Pseudo())
+//print(player1Team.createYourTeam())
+//print(player1Team.createYourTeam())
+//print(team.displayPlayersTeams())
