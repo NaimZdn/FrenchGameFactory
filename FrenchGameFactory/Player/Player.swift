@@ -9,15 +9,15 @@ import Foundation
 class Player {
     var playerPseudo: [String] = [];
     
-    func Player1Pseudo() -> String {
+    func player1Pseudo() -> String {
         var pseudo = ""
         repeat {
-            print("Please choose your Pseudo : ")
+            print("Hello Player 1 ! \n Please choose your Pseudo : ")
             if let pseudoData = readLine() {
                 pseudo = pseudoData
                 if playerPseudo.contains(pseudo) {
                     print("This pseudo \(pseudo) is already use, please choose an another")
-                    Player1Pseudo();
+                    player1Pseudo();
                 } else {
                     playerPseudo.append(pseudo)
                     print("Welcome \(pseudo) !")
@@ -27,15 +27,15 @@ class Player {
         return ""
     }
     
-    func Player2Pseudo() -> String {
+    func player2Pseudo() -> String {
         var pseudo = ""
         repeat {
-            print("Please choose your Pseudo : ")
+            print("Hello Player 2 ! \n Please choose your Pseudo : ")
             if let pseudoData = readLine() {
                 pseudo = pseudoData
                 if playerPseudo.contains(pseudo) {
                     print("This pseudo \(pseudo) is already use, please choose an another")
-                    Player2Pseudo();
+                    player2Pseudo();
                 } else {
                     playerPseudo.append(pseudo)
                     print("Welcome \(pseudo) !")
@@ -45,3 +45,5 @@ class Player {
         return ""
     }
 }
+
+var player = Player()
