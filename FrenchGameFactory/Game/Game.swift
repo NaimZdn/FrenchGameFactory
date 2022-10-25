@@ -15,6 +15,12 @@ class Game {
             + "\n3. You fight between fighters. The winner is the one who killed the opposing team's fighters. \n"
             + "\n4. The last rule and the more important, enjoy the game 😁. \n")
         print("------------------------------------------------------")
+        player.player1Pseudo()
+        player1Team.createYourTeam()
+        player.player2Pseudo()
+        player2Team.createYourTeam()
+        team.displayPlayersTeams()
+        
     }
 }
 
