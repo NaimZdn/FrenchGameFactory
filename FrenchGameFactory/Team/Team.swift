@@ -30,14 +30,30 @@ class Team {
             print("Please choose a name for your character : ")
             if let nameData = readLine() {
                 name = nameData
-                if allCharactersName.contains(name) {
+                if name.count < 1 || name.count > 10 || name.contains(" ") {
+                    print("Your character name must contain at minimum 1 letter and at maximum 10 letters.Spaces has'nt accept. ")
+                    print("------------------------------------------------------")
+                } else if allCharactersName.contains(name) {
                     print("This name \(name) is already use, please choose an another")
                     return chooseCharacterName();
-                    
-                } else {
+        
+                } else if !allCharactersName.contains(name){
                     allCharactersName.append(name)
-                    print("Hmm \(name)... that's a good name !")
-                    
+                    let randomSentence = Int.random(in: 0..<5)
+                    switch randomSentence {
+                    case 0:
+                        print("\(name)...that's a name who inspire the fear !")
+                    case 1:
+                        print("Oh ! With this name : \(name), victory is assured !")
+                    case 2:
+                        print("Beware ! \(name) is in the arena !")
+                    case 3:
+                        print("Welcome \(name). We can't hoping a better name")
+                    case 4:
+                        print("...I can't telling one word, this name : \(name) scaring me")
+                    default :
+                        print("Hmm \(name)...that's a good name !")
+                    }
                 }
             }
         } while name == ""
