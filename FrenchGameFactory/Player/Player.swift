@@ -16,15 +16,18 @@ class Player {
             if let pseudoData:String = readLine() {
                 pseudo = pseudoData
                 if pseudo.count > 10 || pseudo.count < 1 || pseudo.contains(" "){
+                    print("------------------------------------------------------")
                     print("Your pseudo must contain at minimum 1 letter and at maximum 10 letters.Spaces has'nt accept. ")
                     print("------------------------------------------------------")
                     return player1Pseudo();
                 } else if playerPseudo.contains(pseudo) {
+                    print("------------------------------------------------------")
                     print("This pseudo \(pseudo) is already use, please choose an another")
                     print("------------------------------------------------------")
                     return player1Pseudo();
                 } else if !playerPseudo.contains(pseudo){
                     playerPseudo.append(pseudo)
+                    print("------------------------------------------------------")
                     print("Welcome \(pseudo) !")
                     print("------------------------------------------------------")
                 }
