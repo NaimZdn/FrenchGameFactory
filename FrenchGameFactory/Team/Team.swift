@@ -48,7 +48,7 @@ class Team {
                     print("This name \(name) is already use, please choose an another")
                     print("------------------------------------------------------")
                     return chooseCharacterName();
-        
+                    
                 } else if !allCharactersName.contains(name){
                     allCharactersName.append(name)
                     let randomSentence = Int.random(in: 0..<5)
@@ -176,6 +176,7 @@ class Team {
                     charactersDescription.removeAll{$0 == rogue.characterDescription}
                     teamComposition[5] = Rogue(characterName: chooseCharacterName())
                     teamChoice.append(5)
+                    print(teamComposition)
                     createYourTeam()
                 }
             default:
@@ -184,28 +185,40 @@ class Team {
         }
     }
     func displayPlayersTeams() {
-        var teamNumber = 1
         print("Let's start the game, the battle is between the first player :  \(player.playerPseudo[0]) and the second player : \(player.playerPseudo[1])")
         print("------------------------------------------------------")
-
+        
         print("Here is \(player.playerPseudo[0]) team's")
         print("------------------------------------------------------")
         for (key, value) in player1Team.teamComposition {
-            print("\n\(teamNumber). A \(value.className) nammed \(value.characterName) that own a \(value.weaponName) and have \(value.characterHealth) life points.")
-            teamNumber += 1
+            print("\n\(key). A \(value.className) nammed \(value.characterName) that own a \(value.weaponName) and have \(value.characterHealth) life points.")
             
         }
         print("------------------------------------------------------")
         print("Here is \(player.playerPseudo[1]) team's")
         print("------------------------------------------------------")
-        teamNumber = 1
+
         for (key, value) in player2Team.teamComposition {
-            print("\n\(teamNumber). A \(value.className) nammed \(value.characterName) that own a \(value.weaponName) and have \(value.characterHealth) life points.")
-            teamNumber += 1
-            
+            print("\n\(key). A \(value.className) nammed \(value.characterName) that own a \(value.weaponName) and have \(value.characterHealth) life points.")
         }
     }
+    
+    func statsTeam1() {
+        for (key, value) in player1Team.teamComposition {
+            print("\n\(key). A \(value.className) nammed \(value.characterName) that own a \(value.weaponName) and have \(value.characterHealth) life points.")
+        }
+    }
+    
+    func statsTeam2() {
+        for (key, value) in player2Team.teamComposition {
+            print("\n\(key). A \(value.className) nammed \(value.characterName) that own a \(value.weaponName) and have \(value.characterHealth) life points.")
+        }
+    }
+    
+    ¢
 }
+
+    
 var team = Team()
 var player1Team = Team()
 var player2Team = Team()
