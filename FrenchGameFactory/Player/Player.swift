@@ -16,20 +16,20 @@ class Player {
             if let pseudoData:String = readLine() {
                 pseudo = pseudoData
                 if pseudo.count > 10 || pseudo.count < 1 || pseudo.contains(" "){
-                    print("------------------------------------------------------")
+                    print("=============================================================")
                     print("Your pseudo must contain at minimum 1 letter and at maximum 10 letters.Spaces has'nt accept. ")
-                    print("------------------------------------------------------")
+                    print("=============================================================")
                     return player1Pseudo();
                 } else if playerPseudo.contains(pseudo) {
-                    print("------------------------------------------------------")
+                    print("=============================================================")
                     print("This pseudo \(pseudo) is already use, please choose an another")
-                    print("------------------------------------------------------")
+                    print("=============================================================")
                     return player1Pseudo();
                 } else if !playerPseudo.contains(pseudo){
                     playerPseudo.append(pseudo)
-                    print("------------------------------------------------------")
+                    print("=============================================================")
                     print("Welcome \(pseudo) !")
-                    print("------------------------------------------------------")
+                    print("=============================================================")
                 }
 
             }
@@ -45,16 +45,16 @@ class Player {
                 pseudo = pseudoData
                 if pseudo.count > 10 || pseudo.count < 1 || pseudo.contains(" "){
                     print("Your pseudo must contain at minimum 1 letter and at maximum 10 letters. Spaces has'nt accept. ")
-                    print("------------------------------------------------------")
+                    print("=============================================================")
                     return player1Pseudo();
                 } else if playerPseudo.contains(pseudo) {
                     print("This pseudo \(pseudo) is already use, please choose an another")
-                    print("------------------------------------------------------")
+                    print("=============================================================")
                     return player2Pseudo();
                 } else {
                     playerPseudo.append(pseudo)
                     print("Welcome \(pseudo) !")
-                    print("------------------------------------------------------")
+                    print("=============================================================")
                 }
             }
         } while pseudo == ""
