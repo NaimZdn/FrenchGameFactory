@@ -26,7 +26,7 @@ class Game {
             + "\n2. Each character has a talent with 50% chance's activation. \n"
             + "\n3. You fight between fighters. The winner is the one who killed the opposing team's fighters. \n"
             + "\n4. The last rule and the more important, enjoy the game 😁. \n")
-        print("------------------------------------------------------")
+        print("=============================================================")
         player.player1Pseudo()
         player1Team.createYourTeam()
         player.player2Pseudo()
@@ -36,7 +36,9 @@ class Game {
     }
     
     func fightingTeam1() {
+        print("=============================================================")
         print("Please choose your attacker")
+        print("=============================================================")
         player1Team.statsTeam1()
         print("Choose a number associated with one of your team's characters")
         
@@ -44,42 +46,62 @@ class Game {
             switch player1Attacker {
             case "1":
                 if player1Team.teamComposition[1] == nil {
+                    print("=============================================================")
                     print("You couldn't choose this character because he isn't in your team or... maybe he is dead ?")
+                    print("=============================================================")
                     fightingTeam1()
                 } else {
+                    print("=============================================================")
                     print("You choose your Warrior 🛡")
+                    print("=============================================================")
                     attackerTeam1 = player1Team.teamComposition[1]!
                 }
             case "2":
                 if player1Team.teamComposition[2] == nil {
+                    print("=============================================================")
                     print("You couldn't choose this character because he isn't in your team or... maybe he is dead ?")
+                    print("=============================================================")
                     fightingTeam1()
                 } else {
+                    print("=============================================================")
                     print("You choose your Magus 🧙‍♂️")
+                    print("=============================================================")
                     attackerTeam1 = player1Team.teamComposition[2]!
                 }
             case "3":
                 if player1Team.teamComposition[3] == nil {
+                    print("=============================================================")
                     print("You couldn't choose this character because he isn't in your team or... maybe he is dead ?")
+                    print("=============================================================")
                     fightingTeam1()
                 } else {
+                    print("=============================================================")
                     print("You choose your Paladin 🏇")
+                    print("=============================================================")
                     attackerTeam1 = player1Team.teamComposition[3]!
                 }
             case "4":
                 if player1Team.teamComposition[4] == nil {
+                    print("=============================================================")
                     print("You couldn't choose this character because he isn't in your team or... maybe he is dead ?")
+                    print("=============================================================")
                     fightingTeam1()
                 } else {
+                    print("=============================================================")
                     print("You choose your Druid 🦌")
+                    print("=============================================================")
                     attackerTeam1 = player1Team.teamComposition[4]!
                 }
             case "5":
                 if player1Team.teamComposition[5] == nil {
+                    print("=============================================================")
                     print("You couldn't choose this character because he isn't in your team or... maybe he is dead ?")
+                    print("=============================================================")
                     fightingTeam1()
                 } else {
+                    print("=============================================================")
                     print("You choose your Rogue 🗡")
+                    print("=============================================================")
                     attackerTeam1 = player1Team.teamComposition[5]!
                 }
             default:
@@ -88,41 +110,113 @@ class Game {
             
             print("Which opponent character's would you like to attack ? ")
             player2Team.statsTeam2()
+            print("=============================================================")
             print("Choose a number associate with one of your opponent team's")
             
             if let player2Attacked = readLine() {
                 switch player2Attacked {
                 case "1" :
+                    print("=============================================================")
                     print("You choose your opponent Warrior's 🛡")
+                    print("=============================================================")
                     attackedTeam2 = player2Team.teamComposition[1]!
                     attackerTeam1.attackTeam2(attackedTeam2: attackedTeam2, attackerTeam1: attackerTeam1)
+                    if attackedTeam2.characterHealth == 0 {
+                        player2Team.teamComposition.removeValue(forKey: 1)
+                        checkWinnerTeam2()
+                    }
                 case "2" :
+                    print("=============================================================")
                     print("You choose your opponent Magus's 🧙‍♂️")
+                    print("=============================================================")
                     attackedTeam2 = player2Team.teamComposition[2]!
                     attackerTeam1.attackTeam2(attackedTeam2: attackedTeam2, attackerTeam1: attackerTeam1)
+                    if attackedTeam2.characterHealth == 0 {
+                        player2Team.teamComposition.removeValue(forKey: 2)
+                        checkWinnerTeam2()
+                    }
                 case "3" :
+                    print("=============================================================")
                     print("You choose your opponent Paladin's 🏇")
+                    print("=============================================================")
                     attackedTeam2 = player2Team.teamComposition[3]!
                     attackerTeam1.attackTeam2(attackedTeam2: attackedTeam2, attackerTeam1: attackerTeam1)
+                    if attackedTeam2.characterHealth == 0  {
+                        player2Team.teamComposition.removeValue(forKey: 3)
+                        checkWinnerTeam2()
+                    }
                 case "4" :
+                    print("=============================================================")
                     print("You choose your opponent Druid's 🦌")
+                    print("=============================================================")
                     attackedTeam2 = player2Team.teamComposition[4]!
                     attackerTeam1.attackTeam2(attackedTeam2: attackedTeam2, attackerTeam1: attackerTeam1)
+                    if attackedTeam2.characterHealth == 0 {
+                        player2Team.teamComposition.removeValue(forKey: 4)
+                        checkWinnerTeam2()
+                    }
                 case "5" :
+                    print("=============================================================")
                     print("You choose your opponent Rogue's 🗡")
+                    print("=============================================================")
                     attackedTeam2 = player2Team.teamComposition[5]!
                     attackerTeam1.attackTeam2(attackedTeam2: attackedTeam2, attackerTeam1: attackerTeam1)
+                    if attackedTeam2.characterHealth == 0  {
+                        player2Team.teamComposition.removeValue(forKey: 5)
+                        checkWinnerTeam2()
+                    }
                 default:
                     break
                     
                 }
-                
             }
             player2Team.statsTeam2()
-            
         }
     }
     
+    func checkWinnerTeam1() {
+        if player1Team.teamComposition.isEmpty {
+            print("*****************The Winner is \(player.playerPseudo[1])*****************")
+            print("=============================== GAME OVER ===============================")
+            player1Team.teamComposition.removeAll()
+            player2Team.teamComposition.removeAll()
+            print("If you want to play a new game please enter : 1")
+            print("If you want to quit this game game please enter : 2")
+            if let startNewGame = readLine() {
+                switch startNewGame {
+                case "1":
+                    print("Let's start a new game !")
+                    game.startingMenu()
+                case "2":
+                    print("I hope you enjoyed this game. See you soon !")
+                default:
+                    break
+                }
+            }
+        }
+    }
+    
+    func checkWinnerTeam2() {
+        if player2Team.teamComposition.isEmpty {
+            print("*****************The Winner is \(player.playerPseudo[0])*****************")
+            print("=============================== GAME OVER ===============================")
+            player1Team.teamComposition.removeAll()
+            player2Team.teamComposition.removeAll()
+            print("If you want play an other game please enter : 1")
+            print("If you want quit this game game please enter : 2")
+            if let startNewGame = readLine() {
+                switch startNewGame {
+                case "1":
+                    print("Let's start a new game !")
+                    game.startingMenu()
+                case "2":
+                    print("I hope you enjoyed this game. See you soon !")
+                default:
+                    break
+                }
+            }
+        }
+    }
 }
 
-var game = Game(attackerTeam1: magus, attackerTeam2: magus, attackedTeam1: magus, attackedTeam2: magus )
+var game = Game(attackerTeam1: magus, attackerTeam2: magus, attackedTeam1: magus, attackedTeam2: magus)
