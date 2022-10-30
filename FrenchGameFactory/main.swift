@@ -8,8 +8,7 @@
 import Foundation
 
 game.startingMenu()
-//print(player.player1Pseudo())
-//print(player.player2Pseudo())
-//print(player1Team.createYourTeam())
-//print(player1Team.createYourTeam())
-//print(team.displayPlayersTeams())
+while true {
+    game.fightingTeam1()
+    game.fightingTeam2()
+}
