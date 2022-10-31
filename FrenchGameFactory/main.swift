@@ -9,6 +9,8 @@ import Foundation
 
 game.startingMenu()
 while true {
+    game.turn += 1
+    print("============================ TURN \(game.turn) ============================")
     game.fightingTeam1()
     game.fightingTeam2()
 }
