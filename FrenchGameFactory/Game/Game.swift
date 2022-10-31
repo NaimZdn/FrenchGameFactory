@@ -12,6 +12,7 @@ class Game {
     var attackerTeam2: Characters
     var attackedTeam1: Characters
     var attackedTeam2: Characters
+    var turn: Int = 0
     
     init(attackerTeam1: Characters, attackerTeam2: Characters, attackedTeam1: Characters, attackedTeam2: Characters) {
         self.attackerTeam1 = attackerTeam1
@@ -23,7 +24,7 @@ class Game {
     func startingMenu() {
         print("Hello and welcome on the FrenchFactory company's game specially create for you.\n Let me tell you there rules : 📜 \n "
             + "\n1. You must form a team of 3 characters. You can't have 2 same characters in your Team. \n"
-            + "\n2. Each character has a talent with 50% chance's activation. \n"
+            + "\n2. Each character has a talent with 33% chance's activation. \n"
             + "\n3. You fight between fighters. The winner is the one who killed the opposing team's fighters. \n"
             + "\n4. The last rule and the more important, enjoy the game 😁. \n")
         print("=============================================================")
@@ -116,54 +117,85 @@ class Game {
             if let player2Attacked = readLine() {
                 switch player2Attacked {
                 case "1" :
+                    if player2Team.teamComposition[1] == nil {
                     print("=============================================================")
-                    print("You choose your opponent Warrior's 🛡")
+                    print("Your opponent hasn't got this character or... maybe he is dead ?")
                     print("=============================================================")
-                    attackedTeam2 = player2Team.teamComposition[1]!
-                    attackerTeam1.attackTeam2(attackedTeam2: attackedTeam2, attackerTeam1: attackerTeam1)
-                    if attackedTeam2.characterHealth <= 0 {
-                        player2Team.teamComposition.removeValue(forKey: 1)
-                        checkWinnerTeam2()
+                    } else {
+                        print("=============================================================")
+                        print("You choose your opponent Warrior's 🛡")
+                        print("=============================================================")
+                        attackedTeam2 = player2Team.teamComposition[1]!
+                        attackerTeam1.attackTeam2(attackedTeam2: attackedTeam2, attackerTeam1: attackerTeam1)
+                        if attackedTeam2.characterHealth <= 0 {
+                            player2Team.teamComposition.removeValue(forKey: 1)
+                            checkWinnerTeam2()
+                        }
                     }
+                    
                 case "2" :
+                    if player2Team.teamComposition[2] == nil {
                     print("=============================================================")
-                    print("You choose your opponent Magus's 🧙‍♂️")
+                    print("Your opponent hasn't got this character or... maybe he is dead ?")
                     print("=============================================================")
-                    attackedTeam2 = player2Team.teamComposition[2]!
-                    attackerTeam1.attackTeam2(attackedTeam2: attackedTeam2, attackerTeam1: attackerTeam1)
-                    if attackedTeam2.characterHealth <= 0 {
-                        player2Team.teamComposition.removeValue(forKey: 2)
-                        checkWinnerTeam2()
+                    } else {
+                        print("=============================================================")
+                        print("You choose your opponent Magus's 🧙‍♂️")
+                        print("=============================================================")
+                        attackedTeam2 = player2Team.teamComposition[2]!
+                        attackerTeam1.attackTeam2(attackedTeam2: attackedTeam2, attackerTeam1: attackerTeam1)
+                        if attackedTeam2.characterHealth <= 0 {
+                            player2Team.teamComposition.removeValue(forKey: 2)
+                            checkWinnerTeam2()
+                        }
                     }
                 case "3" :
+                    if player2Team.teamComposition[3] == nil {
                     print("=============================================================")
-                    print("You choose your opponent Paladin's 🏇")
+                    print("Your opponent hasn't got this character or... maybe he is dead ?")
                     print("=============================================================")
-                    attackedTeam2 = player2Team.teamComposition[3]!
-                    attackerTeam1.attackTeam2(attackedTeam2: attackedTeam2, attackerTeam1: attackerTeam1)
-                    if attackedTeam2.characterHealth <= 0  {
-                        player2Team.teamComposition.removeValue(forKey: 3)
-                        checkWinnerTeam2()
+                    } else {
+                        print("=============================================================")
+                        print("You choose your opponent Paladin's 🏇")
+                        print("=============================================================")
+                        attackedTeam2 = player2Team.teamComposition[3]!
+                        attackerTeam1.attackTeam2(attackedTeam2: attackedTeam2, attackerTeam1: attackerTeam1)
+                        if attackedTeam2.characterHealth <= 0  {
+                            player2Team.teamComposition.removeValue(forKey: 3)
+                            checkWinnerTeam2()
+                        }
                     }
                 case "4" :
+                    if player2Team.teamComposition[4] == nil {
                     print("=============================================================")
-                    print("You choose your opponent Druid's 🦌")
+                    print("Your opponent hasn't got this character or... maybe he is dead ?")
                     print("=============================================================")
-                    attackedTeam2 = player2Team.teamComposition[4]!
-                    attackerTeam1.attackTeam2(attackedTeam2: attackedTeam2, attackerTeam1: attackerTeam1)
-                    if attackedTeam2.characterHealth <= 0 {
-                        player2Team.teamComposition.removeValue(forKey: 4)
-                        checkWinnerTeam2()
+                    } else {
+                        print("=============================================================")
+                        print("You choose your opponent Druid's 🦌")
+                        print("=============================================================")
+                        attackedTeam2 = player2Team.teamComposition[4]!
+                        attackerTeam1.attackTeam2(attackedTeam2: attackedTeam2, attackerTeam1: attackerTeam1)
+                        if attackedTeam2.characterHealth <= 0 {
+                            player2Team.teamComposition.removeValue(forKey: 4)
+                            checkWinnerTeam2()
+                        }
                     }
                 case "5" :
+                    if player2Team.teamComposition[5] == nil {
                     print("=============================================================")
-                    print("You choose your opponent Rogue's 🗡")
+                    print("Your opponent hasn't got this character or... maybe he is dead ?")
                     print("=============================================================")
-                    attackedTeam2 = player2Team.teamComposition[5]!
-                    attackerTeam1.attackTeam2(attackedTeam2: attackedTeam2, attackerTeam1: attackerTeam1)
-                    if attackedTeam2.characterHealth <= 0  {
-                        player2Team.teamComposition.removeValue(forKey: 5)
-                        checkWinnerTeam2()
+                    } else {
+                        print("=============================================================")
+                        print("You choose your opponent Rogue's 🗡")
+                        print("=============================================================")
+                        attackedTeam2 = player2Team.teamComposition[5]!
+                        attackerTeam1.attackTeam2(attackedTeam2: attackedTeam2, attackerTeam1: attackerTeam1)
+                        if attackedTeam2.characterHealth <= 0  {
+                            player2Team.teamComposition.removeValue(forKey: 5)
+                            checkWinnerTeam2()
+                        }
                     }
                 default:
                     break
@@ -256,54 +288,84 @@ class Game {
             if let player1Attacked = readLine() {
                 switch player1Attacked {
                 case "1" :
+                    if player2Team.teamComposition[1] == nil {
                     print("=============================================================")
-                    print("You choose your opponent Warrior's 🛡")
+                    print("Your opponent hasn't got this character or... maybe he is dead ?")
                     print("=============================================================")
-                    attackedTeam1 = player1Team.teamComposition[1]!
-                    attackerTeam2.attackTeam1(attackedTeam1: attackedTeam1, attackerTeam2: attackerTeam2)
-                    if attackedTeam1.characterHealth <= 0 {
-                        player1Team.teamComposition.removeValue(forKey: 1)
-                        checkWinnerTeam1()
+                    } else {
+                        print("=============================================================")
+                        print("You choose your opponent Warrior's 🛡")
+                        print("=============================================================")
+                        attackedTeam1 = player1Team.teamComposition[1]!
+                        attackerTeam2.attackTeam1(attackedTeam1: attackedTeam1, attackerTeam2: attackerTeam2)
+                        if attackedTeam1.characterHealth <= 0 {
+                            player1Team.teamComposition.removeValue(forKey: 1)
+                            checkWinnerTeam1()
+                        }
                     }
                 case "2" :
+                    if player2Team.teamComposition[2] == nil {
                     print("=============================================================")
-                    print("You choose your opponent Magus's 🧙‍♂️")
+                    print("Your opponent hasn't got this character or... maybe he is dead ?")
                     print("=============================================================")
-                    attackedTeam1 = player1Team.teamComposition[2]!
-                    attackerTeam2.attackTeam1(attackedTeam1: attackedTeam1, attackerTeam2: attackerTeam2)
-                    if attackedTeam1.characterHealth <= 0 {
-                        player1Team.teamComposition.removeValue(forKey: 2)
-                        checkWinnerTeam1()
+                    } else {
+                        print("=============================================================")
+                        print("You choose your opponent Magus's 🧙‍♂️")
+                        print("=============================================================")
+                        attackedTeam1 = player1Team.teamComposition[2]!
+                        attackerTeam2.attackTeam1(attackedTeam1: attackedTeam1, attackerTeam2: attackerTeam2)
+                        if attackedTeam1.characterHealth <= 0 {
+                            player1Team.teamComposition.removeValue(forKey: 2)
+                            checkWinnerTeam1()
+                        }
                     }
                 case "3" :
+                    if player2Team.teamComposition[3] == nil {
                     print("=============================================================")
-                    print("You choose your opponent Paladin's 🏇")
+                    print("Your opponent hasn't got this character or... maybe he is dead ?")
                     print("=============================================================")
-                    attackedTeam1 = player1Team.teamComposition[3]!
-                    attackerTeam2.attackTeam1(attackedTeam1: attackedTeam1, attackerTeam2: attackerTeam2)
-                    if attackedTeam1.characterHealth <= 0  {
-                        player1Team.teamComposition.removeValue(forKey: 3)
-                        checkWinnerTeam1()
+                    } else {
+                        print("=============================================================")
+                        print("You choose your opponent Paladin's 🏇")
+                        print("=============================================================")
+                        attackedTeam1 = player1Team.teamComposition[3]!
+                        attackerTeam2.attackTeam1(attackedTeam1: attackedTeam1, attackerTeam2: attackerTeam2)
+                        if attackedTeam1.characterHealth <= 0  {
+                            player1Team.teamComposition.removeValue(forKey: 3)
+                            checkWinnerTeam1()
+                        }
                     }
                 case "4" :
+                    if player2Team.teamComposition[4] == nil {
                     print("=============================================================")
-                    print("You choose your opponent Druid's 🦌")
+                    print("Your opponent hasn't got this character or... maybe he is dead ?")
                     print("=============================================================")
-                    attackedTeam1 = player1Team.teamComposition[4]!
-                    attackerTeam2.attackTeam1(attackedTeam1: attackedTeam1, attackerTeam2: attackerTeam2)
-                    if attackedTeam1.characterHealth <= 0 {
-                        player1Team.teamComposition.removeValue(forKey: 4)
-                        checkWinnerTeam1()
+                    } else {
+                        print("=============================================================")
+                        print("You choose your opponent Druid's 🦌")
+                        print("=============================================================")
+                        attackedTeam1 = player1Team.teamComposition[4]!
+                        attackerTeam2.attackTeam1(attackedTeam1: attackedTeam1, attackerTeam2: attackerTeam2)
+                        if attackedTeam1.characterHealth <= 0 {
+                            player1Team.teamComposition.removeValue(forKey: 4)
+                            checkWinnerTeam1()
+                        }
                     }
                 case "5" :
+                    if player2Team.teamComposition[5] == nil {
                     print("=============================================================")
-                    print("You choose your opponent Rogue's 🗡")
+                    print("Your opponent hasn't got this character or... maybe he is dead ?")
                     print("=============================================================")
-                    attackedTeam1 = player1Team.teamComposition[5]!
-                    attackerTeam2.attackTeam1(attackedTeam1: attackedTeam1, attackerTeam2: attackerTeam2)
-                    if attackedTeam1.characterHealth <= 0  {
-                        player1Team.teamComposition.removeValue(forKey: 5)
-                        checkWinnerTeam1()
+                    } else {
+                        print("=============================================================")
+                        print("You choose your opponent Rogue's 🗡")
+                        print("=============================================================")
+                        attackedTeam1 = player1Team.teamComposition[5]!
+                        attackerTeam2.attackTeam1(attackedTeam1: attackedTeam1, attackerTeam2: attackerTeam2)
+                        if attackedTeam1.characterHealth <= 0  {
+                            player1Team.teamComposition.removeValue(forKey: 5)
+                            checkWinnerTeam1()
+                        }
                     }
                 default:
                     break
