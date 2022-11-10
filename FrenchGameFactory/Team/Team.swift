@@ -9,30 +9,65 @@ import Foundation
 
 // Création des joueurs
 
-//var teamComposition: [Int: Characters]();
-
 class Team {
     var teamChoice: [Int] = []
+    
     var teamComposition: [Int:Characters] = [:]
-    var charactersDescription = [warrior.characterDescription, magus.characterDescription, paladin.characterDescription, druid.characterDescription, rogue.characterDescription]
+    
+    var characterName: String
+    
+    var characterDescription: [String]
+    
+    init(){
+        self.characterName = ""
+        self.characterDescription = []
+    }
+   
     var allCharactersName: [String] = [];
     
-    func chooseYourCharacters() {
+    
+    func chooseYourCharacters() -> [String] {
+        let warrior = Warrior(characterName: characterName)
+        let magus = Magus(characterName: characterName)
+        let paladin = Paladin(characterName: characterName)
+        let druid = Druid(characterName: characterName)
+        let rogue = Rogue(characterName: characterName)
+        
+        var descriptions = [warrior.characterDescription, magus.characterDescription, paladin.characterDescription, druid.characterDescription, rogue.characterDescription]
+        
+        if teamChoice.contains(1) {
+            descriptions.removeAll{$0 == warrior.characterDescription}
+        }
+        if teamChoice.contains(2) {
+            descriptions.removeAll{$0 == magus.characterDescription}
+        }
+        if teamChoice.contains(3) {
+            descriptions.removeAll{$0 == paladin.characterDescription}
+        }
+        if teamChoice.contains(4) {
+            descriptions.removeAll{$0 == druid.characterDescription}
+        }
+        if teamChoice.contains(5) {
+            descriptions.removeAll{$0 == rogue.characterDescription}
+        }
+        
         if teamChoice.count < 2 {
             print("Please choose \(3 - teamChoice.count) characters for the battle : ")
-            for description in charactersDescription {
+            for description in descriptions {
                 print(description)
             }
         } else if teamChoice.count == 2 {
             print("Please choose 1 character for the battle : ")
-            for description in charactersDescription {
+            for description in descriptions {
                 print(description)
                 
             }
         }
+        characterDescription = descriptions
+        return characterDescription
     }
     
-    func chooseCharacterName() -> String {
+    func chooseCharacterName(allCharacterName: [String]) -> String {
         var name = ""
         repeat {
             print("Please choose a name for your character : ")
@@ -42,14 +77,15 @@ class Team {
                     print("=============================================================")
                     print("Your character name must contain at minimum 1 letter and at maximum 10 letters.Spaces has'nt accept. ")
                     print("=============================================================")
-                    return chooseCharacterName()
-                } else if allCharactersName.contains(name) {
+                    
+                    
+                } else if allCharactersName.contains(name)  {
                     print("=============================================================")
                     print("This name \(name) is already use, please choose an another")
                     print("=============================================================")
-                    return chooseCharacterName();
+                    chooseCharacterName(allCharacterName: [name])
                     
-                } else if !allCharactersName.contains(name){
+                } else {
                     allCharactersName.append(name)
                     let randomSentence = Int.random(in: 0..<5)
                     switch randomSentence {
@@ -77,11 +113,14 @@ class Team {
                         print("=============================================================")
                         print("Hmm \(name)...that's a good name !")
                         print("=============================================================")
+            
                     }
+                    characterName = name
+                    
                 }
             }
-        } while name == ""
-        return name
+        } while characterName == ""
+        return characterName
     }
     
     func createYourTeam() {
@@ -99,111 +138,99 @@ class Team {
                 }
                 if yourChoice > 5 || yourChoice <= 0 {
                     print("Error, choose a number associated at one of theese 5 characters")
-                }
-            } while yourChoice > 5 || yourChoice <= 0
-            switch yourChoice {
-            case 1:
-                if teamChoice.contains(1) {
-                    print("=============================================================")
-                    print("You already choose this character, please choose an another")
-                    print("=============================================================")
-                    createYourTeam()
-                    
                 } else {
-                    print("=============================================================")
-                    print("You choose a Warrior 🛡 ");
-                    print("=============================================================")
-                    charactersDescription.removeAll{$0 == warrior.characterDescription}
-                    teamComposition[1] = Warrior(characterName: chooseCharacterName())
-                    teamChoice.append(1)
-                    createYourTeam()
-                }
-            case 2:
-                if teamChoice.contains(2) {
-                    print("=============================================================")
-                    print("You already choose this character, please choose an another")
-                    print("=============================================================")
-                    createYourTeam()
-                } else {
-                    print("=============================================================")
-                    print("You choose a Magus 🧙‍♂️ ");
-                    print("=============================================================")
-                    charactersDescription.removeAll{$0 == magus.characterDescription}
-                    teamComposition[2] = Magus(characterName: chooseCharacterName())
-                    teamChoice.append(2)
-                    createYourTeam()
-                }
-            case 3:
-                if teamChoice.contains(3){
-                    print("=============================================================")
-                    print("You already choose this character, please choose an another")
-                    print("=============================================================")
-                    createYourTeam()
-                } else {
-                    print("=============================================================")
-                    print("You choose a Paladin 🏇 ");
-                    print("=============================================================")
-                    charactersDescription.removeAll{$0 == paladin.characterDescription}
-                    teamComposition[3] = Paladin(characterName: chooseCharacterName())
-                    teamChoice.append(3)
-                    createYourTeam()
-                }
-            case 4:
-                if teamChoice.contains(4) {
-                    print("=============================================================")
-                    print("You already choose this character, please choose an another")
-                    print("=============================================================")
-                    createYourTeam()
-                } else {
-                    print("=============================================================")
-                    print("You choose a Druid 🦌 ");
-                    print("=============================================================")
-                    charactersDescription.removeAll{$0 == druid.characterDescription}
-                    teamComposition[4] = Druid(characterName: chooseCharacterName())
-                    teamChoice.append(4)
-                    createYourTeam()
-                }
-            case 5:
-                if teamChoice.contains(5) {
-                    print("=============================================================")
-                    print("You already choose this character, please choose an another")
-                    print("=============================================================")
-                    createYourTeam()
-                } else {
-                    print("=============================================================")
-                    print("You choose a Rogue 🗡 ");
-                    print("=============================================================")
-                    charactersDescription.removeAll{$0 == rogue.characterDescription}
-                    teamComposition[5] = Rogue(characterName: chooseCharacterName())
-                    teamChoice.append(5)
-                    print(teamComposition)
-                    createYourTeam()
-                }
-            default:
-                print(teamComposition)
-            }
-        }
-    }
-    func displayPlayersTeams() {
-        print("Let's start the game, the battle is between the first player :  \(player.playerPseudo[0]) and the second player : \(player.playerPseudo[1])")
-        print("=============================================================")
-        
-        print("Here is \(player.playerPseudo[0]) team's")
-        print("=============================================================")
-        for (key, value) in player1Team.teamComposition {
-            print("\n\(key). A \(value.className) nammed \(value.characterName) that own a \(value.weaponName) and have \(value.characterHealth) life points.")
-            
-        }
-        print("=============================================================")
-        print("Here is \(player.playerPseudo[1]) team's")
-        print("=============================================================")
+                    switch yourChoice {
+                    case 1:
+                        if teamChoice.contains(1) {
+                            print("=============================================================")
+                            print("You already choose this character, please choose an another")
+                            print("=============================================================")
+                            
+                        } else {
+                            print("=============================================================")
+                            print("You choose a Warrior 🛡 ");
+                            print("=============================================================")
+                            let warrior = Warrior(characterName: chooseCharacterName(allCharacterName: [characterName]))
+                            print(allCharactersName)
+                            teamComposition[1] = warrior
+                            teamChoice.append(1)
+                            
+                        }
+                    case 2:
+                        if teamChoice.contains(2) {
+                            print("=============================================================")
+                            print("You already choose this character, please choose an another")
+                            print("=============================================================")
+                            
+                        } else {
+                            print("=============================================================")
+                            print("You choose a Magus 🧙‍♂️ ");
+                            print("=============================================================")
+                            let magus = Magus(characterName: chooseCharacterName(allCharacterName: [characterName]))
+                            print(allCharactersName)
+                            teamComposition[2] = magus
+                            teamChoice.append(2)
+                           
+                        }
+                    case 3:
+                        if teamChoice.contains(3){
+                            print("=============================================================")
+                            print("You already choose this character, please choose an another")
+                            print("=============================================================")
+                        
+                        } else {
+                            print("=============================================================")
+                            print("You choose a Paladin 🏇");
+                            print("=============================================================")
+                            let paladin = Paladin(characterName: chooseCharacterName(allCharacterName: []))
+                            teamComposition[3] = paladin
+                            teamChoice.append(3)
+                            
+                        }
+                    case 4:
+                        if teamChoice.contains(4) {
+                            print("=============================================================")
+                            print("You already choose this character, please choose an another")
+                            print("=============================================================")
+                            
+                        } else {
+                            print("=============================================================")
+                            print("You choose a Druid 🦌 ");
+                            print("=============================================================")
+                            let druid = Druid(characterName: chooseCharacterName(allCharacterName: []))
+                            teamComposition[4] = druid
+                            teamChoice.append(4)
+                        
+                        }
+                    case 5:
+                        if teamChoice.contains(5) {
+                            print("=============================================================")
+                            print("You already choose this character, please choose an another")
+                            print("=============================================================")
+                            
+                        } else {
+                            print("=============================================================")
+                            print("You choose a Rogue 🗡 ");
+                            print("=============================================================")
+                            let rogue = Rogue(characterName: chooseCharacterName(allCharacterName: []))
 
-        for (key, value) in player2Team.teamComposition {
-            print("\n\(key). A \(value.className) nammed \(value.characterName) that own a \(value.weaponName) and have \(value.characterHealth) life points.")
+                            teamComposition[5] = rogue
+                            teamChoice.append(5)
+                            
+                        }
+                    default:
+                        print(teamComposition)
+                    }
+                }
+
+            } while teamComposition.count != 3
+                
         }
+            
     }
+     
     
-    func statsTeam1() {
+    /*func statsTeam1() {
         for (key, value) in player1Team.teamComposition {
             print("\n\(key). A \(value.className) nammed \(value.characterName) that own a \(value.weaponName) and have \(value.characterHealth) life points.")
         }
@@ -213,10 +240,9 @@ class Team {
         for (key, value) in player2Team.teamComposition {
             print("\n\(key). A \(value.className) nammed \(value.characterName) that own a \(value.weaponName) and have \(value.characterHealth) life points.")
         }
-    }
+    }*/
 }
 
     
 var team = Team()
-var player1Team = Team()
 var player2Team = Team()

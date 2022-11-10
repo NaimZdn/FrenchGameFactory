@@ -8,17 +8,23 @@
 import Foundation
 class Game {
     
-    var attackerTeam1: Characters
-    var attackerTeam2: Characters
-    var attackedTeam1: Characters
-    var attackedTeam2: Characters
+    //var attackerTeam1: Characters
+   // var attackerTeam2: Characters
+  //  var attackedTeam1: Characters
+    //var attackedTeam2: Characters
+    var player1 = Player(player: "Player 1")
+    var player2 = Player(player: "Player 2")
+    var player1Team = Team()
+    var team = Team()
+   
     var turn: Int = 0
     
-    init(attackerTeam1: Characters, attackerTeam2: Characters, attackedTeam1: Characters, attackedTeam2: Characters) {
-        self.attackerTeam1 = attackerTeam1
-        self.attackerTeam2 = attackerTeam2
-        self.attackedTeam1 = attackedTeam1
-        self.attackedTeam2 = attackedTeam2
+    init(/*attackerTeam1: Characters, attackerTeam2: Characters, attackedTeam1: Characters, attackedTeam2: Characters*/) {
+       // self.attackerTeam1 = attackerTeam1
+       // self.attackerTeam2 = attackerTeam2
+        //self.attackedTeam1 = attackedTeam1
+        //self.attackedTeam2 = attackedTeam2
+        
     }
     
     func startingMenu() {
@@ -28,15 +34,35 @@ class Game {
             + "\n3. You fight between fighters. The winner is the one who killed the opposing team's fighters. \n"
             + "\n4. The last rule and the more important, enjoy the game 😁. \n")
         print("=============================================================")
-        player.player1Pseudo()
+        let pseudo1 = player1.choosePlayerPseudo(allPlayerPseudo: [])
         player1Team.createYourTeam()
-        player.player2Pseudo()
-        player2Team.createYourTeam()
-        team.displayPlayersTeams()
+        player2.choosePlayerPseudo(allPlayerPseudo: [pseudo1])
+        //player2Team.createYourTeam()
+        //displayPlayersTeams()
         
     }
     
-    func fightingTeam1() {
+    func displayPlayersTeams() {
+        
+        print("Let's start the game, the battle is between the first player :  \(player1.pseudo) and the second player : \(player2.pseudo)")
+        print("=============================================================")
+        
+        print("Here is \(player1.pseudo) team's")
+        print("=============================================================")
+        for (key, value) in player1Team.teamComposition {
+            print("\n\(key). A \(value.className) nammed \(value.characterName) that own a \(value.weaponName) and have \(value.characterHealth) life points.")
+            
+        }
+        print("=============================================================")
+        print("Here is \(player2.pseudo) team's")
+        print("=============================================================")
+
+       /* for (key, value) in player2Team.teamComposition {
+            print("\n\(key). A \(value.className) nammed \(value.characterName) that own a \(value.weaponName) and have \(value.characterHealth) life points.")
+        }*/
+    }
+    
+    /*func fightingTeam1() {
         print("=============================================================")
         print("It's your turn \(player.playerPseudo[0]). Please choose your attacker")
         print("=============================================================")
@@ -391,7 +417,6 @@ class Game {
                     game.startingMenu()
                 case "2":
                     print("I hope you enjoyed this game. See you soon !")
-                    break
                 default:
                     break
                 }
@@ -420,6 +445,7 @@ class Game {
             }
         }
     }
+     */
 }
 
-var game = Game(attackerTeam1: magus, attackerTeam2: magus, attackedTeam1: magus, attackedTeam2: magus)
+
