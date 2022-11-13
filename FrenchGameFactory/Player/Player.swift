@@ -41,10 +41,8 @@ class Player {
                 
                 }
             }
-
         } while pseudo == ""
         return pseudo
-                
     }
 }
 
