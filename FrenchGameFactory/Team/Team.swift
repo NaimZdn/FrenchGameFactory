@@ -11,22 +11,16 @@ import Foundation
 
 class Team {
     var teamChoice: [Int] = []
-    
-    var teamComposition: [Int:Characters] = [:]
-    
+    var teamComposition: [Characters] = []
     var characterName: String
-    
-    var characterDescription: [String]
     
     init(){
         self.characterName = ""
-        self.characterDescription = []
     }
    
     var allCharactersName: [String] = [];
     
-    
-    func chooseYourCharacters() -> [String] {
+    func chooseYourCharacters()  {
         let warrior = Warrior(characterName: characterName)
         let magus = Magus(characterName: characterName)
         let paladin = Paladin(characterName: characterName)
@@ -63,8 +57,6 @@ class Team {
                 
             }
         }
-        characterDescription = descriptions
-        return characterDescription
     }
     
     func chooseCharacterName(allCharacterName: [String]) -> String {
@@ -83,7 +75,7 @@ class Team {
                     print("=============================================================")
                     print("This name \(name) is already use, please choose an another")
                     print("=============================================================")
-                    chooseCharacterName(allCharacterName: [name])
+                    characterName = ""
                     
                 } else {
                     allCharactersName.append(name)
@@ -133,11 +125,15 @@ class Team {
                     if let choiceCharacters = Int(choiceData) {
                         yourChoice = choiceCharacters
                     } else {
+                        print("=============================================================")
                         print("You must enter a valid number !")
+                        print("=============================================================")
                     }
                 }
                 if yourChoice > 5 || yourChoice <= 0 {
+                    print("=============================================================")
                     print("Error, choose a number associated at one of theese 5 characters")
+                    print("=============================================================")
                 } else {
                     switch yourChoice {
                     case 1:
@@ -152,7 +148,7 @@ class Team {
                             print("=============================================================")
                             let warrior = Warrior(characterName: chooseCharacterName(allCharacterName: [characterName]))
                             print(allCharactersName)
-                            teamComposition[1] = warrior
+                            teamComposition.append(warrior)
                             teamChoice.append(1)
                             
                         }
@@ -168,7 +164,7 @@ class Team {
                             print("=============================================================")
                             let magus = Magus(characterName: chooseCharacterName(allCharacterName: [characterName]))
                             print(allCharactersName)
-                            teamComposition[2] = magus
+                            teamComposition.append(magus)
                             teamChoice.append(2)
                            
                         }
@@ -183,7 +179,7 @@ class Team {
                             print("You choose a Paladin 🏇");
                             print("=============================================================")
                             let paladin = Paladin(characterName: chooseCharacterName(allCharacterName: []))
-                            teamComposition[3] = paladin
+                            teamComposition.append(paladin)
                             teamChoice.append(3)
                             
                         }
@@ -198,7 +194,7 @@ class Team {
                             print("You choose a Druid 🦌 ");
                             print("=============================================================")
                             let druid = Druid(characterName: chooseCharacterName(allCharacterName: []))
-                            teamComposition[4] = druid
+                            teamComposition.append(druid)
                             teamChoice.append(4)
                         
                         }
@@ -213,8 +209,7 @@ class Team {
                             print("You choose a Rogue 🗡 ");
                             print("=============================================================")
                             let rogue = Rogue(characterName: chooseCharacterName(allCharacterName: []))
-
-                            teamComposition[5] = rogue
+                            teamComposition.append(rogue)
                             teamChoice.append(5)
                             
                         }
@@ -222,27 +217,135 @@ class Team {
                         print(teamComposition)
                     }
                 }
-
             } while teamComposition.count != 3
-                
-        }
-            
-    }
-     
-    
-    /*func statsTeam1() {
-        for (key, value) in player1Team.teamComposition {
-            print("\n\(key). A \(value.className) nammed \(value.characterName) that own a \(value.weaponName) and have \(value.characterHealth) life points.")
         }
     }
     
-    func statsTeam2() {
-        for (key, value) in player2Team.teamComposition {
-            print("\n\(key). A \(value.className) nammed \(value.characterName) that own a \(value.weaponName) and have \(value.characterHealth) life points.")
+    
+  func attackTeam(attackedTeam: Characters, attackerTeam: Characters) {
+        
+         if attackedTeam.characterHealth > 0 {
+             if attackedTeam.characterHealth <= 0 {
+                 print("=============================================================")
+                 print("This character is dead")
+                 print("=============================================================")
+             } else {
+                 let randomActivation = Int.random(in: 0..<3)
+                 if randomActivation == 0 {
+                     if attackedTeam.className == "Warrior" {
+                         print("=============================================================")
+                         print("Oh ! Opponent Warrior's make a shield for reduce your attack")
+                         print("=============================================================")
+                         let damageReduce: Double = attackerTeam.weaponDamage - attackedTeam.talent
+                         attackedTeam.characterHealth -= damageReduce
+                         
+                     } else if attackerTeam.className != "Druid" && attackerTeam.className != "Warrior"{
+                         print("=============================================================")
+                         print("Oh ! Your character active his talent")
+                         print("=============================================================")
+                         attackedTeam.characterHealth -= attackerTeam.weaponDamage
+                         attackedTeam.characterHealth -= attackerTeam.talent
+                         
+                     } else if attackerTeam.className == "Druid" {
+                         
+                         print("=============================================================")
+                         print("Oh your Druid active his talent, you can choose a character to heal : ")
+                         print("=============================================================")
+                         statsTeam()
+                         healingTeam()
+                         attackedTeam.characterHealth -= attackerTeam.weaponDamage
+                         
+                     }else if attackerTeam.className == "Warrior" {
+                         attackedTeam.characterHealth -= attackerTeam.weaponDamage
+                     }
+         
+                 } else {
+                     attackedTeam.characterHealth -= attackerTeam.weaponDamage
+                 }
+                 if attackedTeam.characterHealth <= 0 {
+                     print("=============================================================")
+                     print("Congratulation, you kill his \(attackedTeam.className)")
+                     print("=============================================================")
+                 }
+             }
+         }
+     }
+    
+    
+    func healingTeam() {
+        var healing: Int = 0
+        repeat {
+            if let characterToHeal = readLine() {
+                if let healedCharacter = Int(characterToHeal) {
+                    healing = healedCharacter
+                } else {
+                    print("=============================================================")
+                    print("You must enter a valid number !")
+                    print("=============================================================")
+                    
+                }
+                if healing > 3 || healing <= 0 {
+                    print("=============================================================")
+                    print("Please enter a number associated of one of your 3 characters !")
+                    print("=============================================================")
+                } else {
+                    switch healing {
+                    case 1:
+                        if !teamComposition.indices.contains(0){
+                            print("=============================================================")
+                            print("You can't choose this character because he isn't in your team or... maybe he's dead ?")
+                            print("=============================================================")
+                            
+                        } else {
+                            print("=============================================================")
+                            print("Your \(teamComposition[0].className) gain 1 lifepoint")
+                            print("=============================================================")
+                            let druid = Druid(characterName: "")
+                            teamComposition[0].characterHealth += druid.talent
+                            healing = 1
+                        }
+                    case 2:
+                        if !teamComposition.indices.contains(1) {
+                            print("=============================================================")
+                            print("You can't choose this character because he isn't in your team or... maybe he's dead ?")
+                            print("=============================================================")
+                        
+                        } else {
+                            print("=============================================================")
+                            print("Your \(teamComposition[1].className) gain 1 lifepoint")
+                            print("=============================================================")
+                            let druid = Druid(characterName: "")
+                            teamComposition[1].characterHealth += druid.talent
+                            healing = 1
+                        }
+                    case 3:
+                        if !teamComposition.indices.contains(2) {
+                            print("=============================================================")
+                            print("You can't choose this character because he isn't in your team or... maybe he's dead ?")
+                            print("=============================================================")
+                            
+                        } else {
+                            print("=============================================================")
+                            print("Your \(teamComposition[2].className) gain 1 lifepoint")
+                            print("=============================================================")
+                            let druid = Druid(characterName: "")
+                            teamComposition[2].characterHealth += druid.talent
+                            healing = 1
+                        }
+                    default:
+                        break
+                    }
+                }
+            }
+        } while healing != 1
+    }
+    
+    func statsTeam() {
+        var number: Int = 0
+        
+        for character in teamComposition {
+            print("\n\(number + 1). A \(character.className) nammed \(character.characterName) that own a \(character.weaponName) and have \(character.characterHealth) life points.")
+            number += 1
         }
-    }*/
+    }
 }
-
-    
-var team = Team()
-var player2Team = Team()
