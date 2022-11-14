@@ -23,14 +23,13 @@ class Game {
     var playerTurn: Player?
     var notPlayerTurn: Player?
     
-    
-    
     init() {
         self.attacker = character
         self.attacked = character
         
     }
     
+    // We create a starting Menu function to execute the game.
     func startingMenu() {
         print("Hello and welcome on the FrenchFactory company's game specially create for you.\n Let me tell you there rules : 📜 \n "
               + "\n1. You must form a team of 3 characters. You can't have 2 same characters in your Team. \n"
@@ -47,14 +46,15 @@ class Game {
         var turn: Int = 1
         
         repeat {
-            print("============================ TURN \(turn) ============================")
+            print("============================ TURN \(turn) =========================")
             fight()
             turn += 1
-        
+            
         } while !player1Team.teamComposition.isEmpty && !player2Team.teamComposition.isEmpty
         checkWinnerTeam()
     }
     
+    // We created a function to display each player team's after the creation of teams.
     func displayPlayersTeams() {
         
         print("Let's start the game, the battle is between the first player :  \(player1.pseudo) and the second player : \(player2.pseudo)")
@@ -70,7 +70,9 @@ class Game {
         player2Team.statsTeam()
     }
     
+    // We create a fight function.
     func fight() {
+        // We create some variables. There values changes during each player turn thanks to a boolean to control who player turn's.
         var pseudo1: String
         var team1:Team
         
@@ -90,7 +92,7 @@ class Game {
         } else {
             pseudo1 = player2.pseudo
             team1 = player2Team
-        
+            
             team2 = player1Team
             
             isPlayerOneTurn = true
@@ -106,7 +108,7 @@ class Game {
         
         repeat {
             if let playerAttacker = readLine() {
-                if let characterAttacker = Int(playerAttacker){
+                if let characterAttacker = Int(playerAttacker){ // 
                     attackerChoice = characterAttacker
                 } else {
                     print("=============================================================")
@@ -183,7 +185,7 @@ class Game {
         
         repeat {
             if let playerAttacked = readLine() {
-                if let characterAttacked = Int(playerAttacked) {
+                if let characterAttacked = Int(playerAttacked) { // We transform String readline to Int readline for print an error message if the user haven't enter a number.
                     attackedChoice = characterAttacked
                     
                 } else {
@@ -191,26 +193,25 @@ class Game {
                     print("You must enter a valid number !")
                     print("=============================================================")
                 }
-                if attackedChoice > 3 || attackedChoice <= 0 {
+                if attackedChoice > 3 || attackedChoice <= 0 { // If number enter is more than 3 or less or equal than 0 we display an error message.
                     print("=============================================================")
                     print("Please enter a number associated of one of your 3 characters !")
                     print("=============================================================")
                 } else {
-                    switch attackedChoice {
-                        
+                    switch attackedChoice { // We create a switch whiwh will allow players to choice his attacked character.
                     case 1:
-                        if !team2.teamComposition.indices.contains(0) {
+                        if !team2.teamComposition.indices.contains(0) { // If teamComposition not contain the character we display an error message.
                             print("=============================================================")
                             print("Your opponent hasn't got this character or... maybe he is dead ?")
                             print("=============================================================")
                             
                         } else {
-                            attacked = team2.teamComposition[0]
+                            attacked = team2.teamComposition[0] // attacked is equal at teamComposition case index's.
                             print("=============================================================")
                             print("You choose your opponent \(team2.teamComposition[0].className) !")
                             print("=============================================================")
-                            team1.attackTeam(attackedTeam: attacked, attackerTeam: attacker)
-                            if attacked.characterHealth <= 0 {
+                            team1.attackTeam(characterAttacked: attacked, characterAttacker: attacker) // We call the attackTeam function to make the fight.
+                            if attacked.characterHealth <= 0 { // If attacked character health is less or equal than 0 we removed the character to teamComposition array's.
                                 team2.teamComposition.remove(at: 0)
                             }
                             attackedChoice = 1
@@ -227,7 +228,7 @@ class Game {
                             print("=============================================================")
                             print("You choose your opponent \(team2.teamComposition[1].className) !")
                             print("=============================================================")
-                            team1.attackTeam(attackedTeam: attacked, attackerTeam: attacker)
+                            team1.attackTeam(characterAttacked: attacked, characterAttacker: attacker)
                             if attacked.characterHealth <= 0 {
                                 team2.teamComposition.remove(at: 1)
                             }
@@ -245,7 +246,7 @@ class Game {
                             print("=============================================================")
                             print("You choose your opponent \(team2.teamComposition[2].className) !")
                             print("=============================================================")
-                            team1.attackTeam(attackedTeam: attacked, attackerTeam: attacker)
+                            team1.attackTeam(characterAttacked: attacked, characterAttacker: attacker)
                             if attacked.characterHealth <= 0 {
                                 team2.teamComposition.remove(at: 2)
                             }
@@ -259,30 +260,44 @@ class Game {
         } while attackedChoice != 1
         attackedChoice = 0
     }
-
+    
+    // We created a function to ckeck the winner
     func checkWinnerTeam() {
-        if player1Team.teamComposition.isEmpty {
+        var gameEnding: Int = 0
+        if player1Team.teamComposition.isEmpty { // If the team is empty we display the winner's pseudo.
             print("*****************The Winner is \(player2.pseudo)*****************")
             print("=============================== GAME OVER ===============================")
+            gameEnding = 1
         }
         else if player2Team.teamComposition.isEmpty {
             print("*****************The Winner is \(player1.pseudo)*****************")
             print("=============================== GAME OVER ===============================")
+            gameEnding = 1
             
         }
-        player1Team.teamComposition.removeAll()
-        player2Team.teamComposition.removeAll()
-        print("If you want play an other game please enter : 1")
-        print("If you want quit this game game please enter : 2")
-        if let startNewGame = readLine() {
-            switch startNewGame {
-            case "1":
-                print("Let's start a new game !")
-                game.startingMenu()
-            case "2":
-                print("I hope you enjoyed this game. See you soon !")
-            default:
-                break
+        if gameEnding == 1 {
+            var startOrFinish: Int = 0
+            player1Team.teamComposition.removeAll() // We remove all teamComposition to finish the game or start an another.
+            player2Team.teamComposition.removeAll()
+            print("If you want play an other game please enter : 1")
+            print("If you want quit this game game please enter : 2")
+            if let optionChoice = readLine() {
+                if let choice = Int(optionChoice) {
+                    startOrFinish = choice
+                } else {
+                    print("=============================================================")
+                    print("You must enter a valid number !")
+                    print("=============================================================")
+                }
+                switch startOrFinish {
+                case 1:
+                    print("Let's start a new game !")
+                    game.startingMenu()
+                case 2:
+                    print("I hope you enjoyed this game. See you soon !")
+                default:
+                    break
+                }
             }
         }
     }
