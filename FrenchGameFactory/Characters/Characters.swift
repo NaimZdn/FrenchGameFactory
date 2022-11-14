@@ -17,12 +17,12 @@ class Characters {
     var talent: Double;
     var characterHealth: Double {
         didSet {
-            if oldValue < characterHealth && className == "Warrior" {
-                print("Oh, with his shield, your opponent reduce his damage by \(characterHealth - oldValue)")
+            if oldValue < characterHealth && className == "Warrior 🛡" {
+                print("Oh, with his shield, your opponent Warrior's 🛡 reduce his damage by \(characterHealth - oldValue)")
                 print("=============================================================")
                 
-            } else if oldValue < characterHealth && className == "Druid" {
-                print("Oh ! With his talent your Druid heal one of your characters, his lifepoints increase by 1 ")
+            } else if oldValue < characterHealth && className == "Druid 🦌" {
+                print("Oh ! With his talent your Druid 🦌 heal one of your characters, his lifepoints increase by 1 ")
                 print("=============================================================")
             }
             
