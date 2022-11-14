@@ -17,16 +17,7 @@ class Characters {
     var talent: Double;
     var characterHealth: Double {
         didSet {
-            if oldValue < characterHealth && className == "Warrior 🛡" {
-                print("Oh, with his shield, your opponent Warrior's 🛡 reduce his damage by \(characterHealth - oldValue)")
-                print("=============================================================")
-                
-            } else if oldValue < characterHealth && className == "Druid 🦌" {
-                print("Oh ! With his talent your Druid 🦌 heal one of your characters, his lifepoints increase by 1 ")
-                print("=============================================================")
-            }
-            
-            if oldValue > characterHealth {
+            if oldValue > characterHealth { // We display lifepoints after the fight.
                 print("Your opponent \(className) has now \(characterHealth) lifepoints !")
                 print("=============================================================")
                 
@@ -38,7 +29,7 @@ class Characters {
             }
         }
     }
-
+    
     init(className: String, characterDescription: String, characterName: String, characterHealth: Double, weaponName: String, weaponDamage: Double, talent: Double) {
         self.className = className
         self.characterDescription = characterDescription
