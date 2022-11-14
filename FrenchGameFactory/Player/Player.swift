@@ -16,6 +16,7 @@ class Player {
         self.pseudo = ""
     }
     
+    // We create a function for player chooses a Pseudo.
     func choosePlayerPseudo(allPlayerPseudo: [String]) -> String {
         var playerPseudo = ""
         repeat {
@@ -23,12 +24,12 @@ class Player {
             
             if let pseudoData = readLine() {
                 playerPseudo = pseudoData
-                if playerPseudo.count > 10 || playerPseudo.count < 1 || playerPseudo.contains(" "){
+                if playerPseudo.count > 10 || playerPseudo.count < 1 || playerPseudo.contains(" "){ // If the number of characters for the pseudo is more than 10, less than 1 or contain only space, we can print an errror message.
                     print("=============================================================")
                     print("Your pseudo must contain at minimum 1 letter and at maximum 10 letters.Spaces has'nt accept. ")
                     print("=============================================================")
                     
-                } else if allPlayerPseudo.contains(playerPseudo) {
+                } else if allPlayerPseudo.contains(playerPseudo) { // If the pseudo is already use by an another player, we can print an error message.
                     print("=============================================================")
                     print("This pseudo \(playerPseudo) is already use, please choose an another")
                     print("=============================================================")
@@ -42,7 +43,7 @@ class Player {
                 }
             }
         } while pseudo == ""
-        return pseudo
+        return pseudo 
     }
 }
 
