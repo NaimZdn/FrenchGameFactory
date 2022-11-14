@@ -39,11 +39,11 @@ class Player {
                     print("Welcome \(playerPseudo) !")
                     print("=============================================================")
                     pseudo = playerPseudo
-                
+                    
                 }
             }
         } while pseudo == ""
-        return pseudo 
+        return pseudo
     }
 }
 
