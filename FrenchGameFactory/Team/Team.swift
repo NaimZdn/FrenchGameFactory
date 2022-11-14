@@ -88,27 +88,20 @@ class Team {
                     case 0:
                         print("=============================================================")
                         print("\(name)...that's a name who inspire the fear !")
-                        print("=============================================================")
                     case 1:
                         print("=============================================================")
                         print("Oh ! With this name : \(name), victory is assured !")
-                        print("=============================================================")
                     case 2:
                         print("=============================================================")
                         print("Beware ! \(name) is in the arena !")
-                        print("=============================================================")
                     case 3:
                         print("=============================================================")
                         print("Welcome \(name). We can't hoping a better name")
-                        print("=============================================================")
                     case 4:
                         print("=============================================================")
                         print("...I can't telling one word, this name : \(name) scaring me")
-                        print("=============================================================")
                     default :
-                        print("=============================================================")
-                        print("Hmm \(name)...that's a good name !")
-                        print("=============================================================")
+                        break
                         
                     }
                     characterName = name
@@ -238,7 +231,6 @@ class Team {
                     print("=============================================================")
                     let damageReduce: Double = characterAttacker.weaponDamage - characterAttacked.talent
                     characterAttacked.characterHealth -= damageReduce
-                    characterAttacked.characterHealth -= characterAttacker.weaponDamage
                     
                 } else if characterAttacker.className == "Druid 🦌" { //  If the character attacker is a Druid his talent healed a team character's choosing by the player with healingteam function.
                     print("=============================================================")
