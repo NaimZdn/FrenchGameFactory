@@ -12,20 +12,26 @@ class Game {
     var player2 = Player(player: "Player 2")
     var player1Team = Team()
     var player2Team = Team()
-    var team = Team()
     
     var character = Magus(characterName: "")
     
     var attacker: Characters
     var attacked: Characters
     
+    var pseudo1: String
+    var team1:Team
+    
+    var team2:Team
+    
     var isPlayerOneTurn:Bool = true
-    var playerTurn: Player?
-    var notPlayerTurn: Player?
+    var isPlayerOneTeam:Bool = true
     
     init() {
         self.attacker = character
         self.attacked = character
+        self.pseudo1 = ""
+        self.team1 = Team()
+        self.team2 = Team()
         
     }
     
@@ -70,21 +76,10 @@ class Game {
         player2Team.statsTeam()
     }
     
-    // We create a fight function.
-    func fight() {
-        // We create some variables. There values changes during each player turn thanks to a boolean to control who player turn's.
-        var pseudo1: String
-        var team1:Team
-        
-        var team2:Team
-        
-        var attackerChoice: Int = 0
-        var attackedChoice: Int = 0
-        
+    func switchTurn() {
         if isPlayerOneTurn  {
             pseudo1 = player1.pseudo
             team1 = player1Team
-            
             team2 = player2Team
             
             isPlayerOneTurn = false
@@ -92,12 +87,38 @@ class Game {
         } else {
             pseudo1 = player2.pseudo
             team1 = player2Team
-            
             team2 = player1Team
             
             isPlayerOneTurn = true
-            
+    
         }
+    }
+    
+    func selectCharacter(team: Team) -> Characters {
+        var characterSelected = 0
+        repeat{
+           if let choice = readLine(){
+                if let numberChoice = Int(choice) {
+                    if numberChoice >= 1 && numberChoice <= team.teamComposition.count {
+                        characterSelected += 1
+                        //subtract 1 from the choice by restricting the choice so as not to go into the negative nor to exceed the exact count of element in the characterAlive array.
+                        return team.teamComposition[numberChoice - 1]
+                    } else {
+                        print("You pick the wrong number, choose between 1 and \(team.teamComposition.count)")
+                    }
+                }
+            }
+        } while characterSelected < 1
+    }
+
+    // We create a fight function.
+    func fight() {
+        // We create some variables. There values changes during each player turn thanks to a boolean to control who player turn's.
+        
+        var attackerChoice: Int = 0
+        var attackedChoice: Int = 0
+        
+        switchTurn()
         
         print("=============================================================")
         print("It's your turn \(pseudo1). Please choose your attacker")
@@ -107,74 +128,13 @@ class Game {
         print("=============================================================")
         
         repeat {
-            if let playerAttacker = readLine() {
-                if let characterAttacker = Int(playerAttacker){ // 
-                    attackerChoice = characterAttacker
-                } else {
-                    print("=============================================================")
-                    print("You must enter a valid number !")
-                    print("=============================================================")
-                }
-                if attackerChoice > 3 || attackerChoice <= 0 {
-                    print("=============================================================")
-                    print("Please enter a number associated of one of your 3 characters !")
-                    print("=============================================================")
-                } else {
-                    switch attackerChoice {
-                        
-                    case 1:
-                        if !team1.teamComposition.indices.contains(0) {
-                            print("=============================================================")
-                            print("You couldn't choose this character because he isn't in your team or... maybe he is dead ?")
-                            print("=============================================================")
-                            team1.statsTeam()
-                            print("Please, choose a number associated with one of your team's characters")
-                            
-                        } else {
-                            attacker = team1.teamComposition[0]
-                            print("=============================================================")
-                            print("You choose your \(team1.teamComposition[0].characterName)")
-                            print("=============================================================")
-                            attackerChoice = 1
-                            
-                        }
-                    case 2:
-                        if !team1.teamComposition.indices.contains(1) {
-                            print("=============================================================")
-                            print("You couldn't choose this character because he isn't in your team or... maybe he is dead ?")
-                            print("=============================================================")
-                            team1.statsTeam()
-                            print("Please, choose a number associated with one of your team's characters")
-                            
-                        } else {
-                            attacker = team1.teamComposition[1]
-                            print("=============================================================")
-                            print("You choose your \(team1.teamComposition[1].characterName)")
-                            print("=============================================================")
-                            attackerChoice = 1
-                        }
-                        
-                    case 3:
-                        if !team1.teamComposition.indices.contains(2) {
-                            print("=============================================================")
-                            print("You couldn't choose this character because he isn't in your team or... maybe he is dead ?")
-                            print("=============================================================")
-                            team1.statsTeam()
-                            print("Please, choose a number associated with one of your team's characters")
-                            
-                        } else {
-                            attacker = team1.teamComposition[2]
-                            print("=============================================================")
-                            print("You choose your \(team1.teamComposition[2].characterName)")
-                            print("=============================================================")
-                            attackerChoice = 1
-                            
-                        }
-                    default :
-                        break
-                    }
-                }
-            }
+            let characterSelected = selectCharacter(team: team1)
+            attacker = characterSelected
+            print("=============================================================")
+            print("You choose your \(characterSelected.className)")
+            print("=============================================================")
+            attackerChoice = 1
+            
         } while attackerChoice != 1
         attackerChoice = 0
         
@@ -184,79 +144,17 @@ class Game {
         print("Choose a number associate with one of your opponent team's")
         
         repeat {
-            if let playerAttacked = readLine() {
-                if let characterAttacked = Int(playerAttacked) { // We transform String readline to Int readline for print an error message if the user haven't enter a number.
-                    attackedChoice = characterAttacked
-                    
-                } else {
-                    print("=============================================================")
-                    print("You must enter a valid number !")
-                    print("=============================================================")
-                }
-                if attackedChoice > 3 || attackedChoice <= 0 { // If number enter is more than 3 or less or equal than 0 we display an error message.
-                    print("=============================================================")
-                    print("Please enter a number associated of one of your 3 characters !")
-                    print("=============================================================")
-                } else {
-                    switch attackedChoice { // We create a switch whiwh will allow players to choice his attacked character.
-                    case 1:
-                        if !team2.teamComposition.indices.contains(0) { // If teamComposition not contain the character we display an error message.
-                            print("=============================================================")
-                            print("Your opponent hasn't got this character or... maybe he is dead ?")
-                            print("=============================================================")
-                            
-                        } else {
-                            attacked = team2.teamComposition[0] // attacked is equal at teamComposition case index's.
-                            print("=============================================================")
-                            print("You choose your opponent \(team2.teamComposition[0].className) !")
-                            print("=============================================================")
-                            team1.attackTeam(characterAttacked: attacked, characterAttacker: attacker) // We call the attackTeam function to make the fight.
-                            if attacked.characterHealth <= 0 { // If attacked character health is less or equal than 0 we removed the character to teamComposition array's.
-                                team2.teamComposition.remove(at: 0)
-                            }
-                            attackedChoice = 1
-                            
-                        }
-                    case 2:
-                        if !team2.teamComposition.indices.contains(1) {
-                            print("=============================================================")
-                            print("Your opponent hasn't got this character or... maybe he is dead ?")
-                            print("=============================================================")
-                            
-                        } else {
-                            attacked = team2.teamComposition[1]
-                            print("=============================================================")
-                            print("You choose your opponent \(team2.teamComposition[1].className) !")
-                            print("=============================================================")
-                            team1.attackTeam(characterAttacked: attacked, characterAttacker: attacker)
-                            if attacked.characterHealth <= 0 {
-                                team2.teamComposition.remove(at: 1)
-                            }
-                            attackedChoice = 1
-                            
-                        }
-                    case 3:
-                        if !team2.teamComposition.indices.contains(2) {
-                            print("=============================================================")
-                            print("Your opponent hasn't got this character or... maybe he is dead ?")
-                            print("=============================================================")
-                            
-                        } else {
-                            attacked = team2.teamComposition[2]
-                            print("=============================================================")
-                            print("You choose your opponent \(team2.teamComposition[2].className) !")
-                            print("=============================================================")
-                            team1.attackTeam(characterAttacked: attacked, characterAttacker: attacker)
-                            if attacked.characterHealth <= 0 {
-                                team2.teamComposition.remove(at: 2)
-                            }
-                            attackedChoice = 1
-                        }
-                    default:
-                        break
-                    }
-                }
+            let characterSelected = selectCharacter(team: team2)
+            attacked = characterSelected
+            print("=============================================================")
+            print("You choose your opponent's \(characterSelected.className)")
+            print("=============================================================")
+            team1.attackTeam(characterAttacked: attacked, characterAttacker: attacker) // We call the attackTeam function to make the fight.
+            if attacked.characterHealth <= 0 { // If attacked character health is less or equal than 0 we removed the character to teamComposition array's.
+                team2.teamComposition.remove(at: 0)
             }
+            attackedChoice = 1
+            
         } while attackedChoice != 1
         attackedChoice = 0
     }
@@ -302,4 +200,3 @@ class Game {
         }
     }
 }
-
