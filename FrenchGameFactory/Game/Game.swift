@@ -10,7 +10,7 @@ class Game {
     
     var player1 = Player(player: "Player 1")
     var player2 = Player(player: "Player 2")
-    var ¢ = Team()
+    var player1Team = Team()
     var player2Team = Team()
     
     var character = Magus(characterName: "")
