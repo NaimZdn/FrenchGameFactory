@@ -10,7 +10,7 @@ class Game {
     
     var player1 = Player(player: "Player 1")
     var player2 = Player(player: "Player 2")
-    var player1Team = Team()
+    var ¢ = Team()
     var player2Team = Team()
     
     var character = Magus(characterName: "")
@@ -18,10 +18,10 @@ class Game {
     var attacker: Characters
     var attacked: Characters
     
-    var pseudo1: String
-    var team1:Team
+    var playerPseudo: String
     
-    var team2:Team
+    var playerTeam:Team
+    var opponentTeam:Team
     
     var isPlayerOneTurn:Bool = true
     var isPlayerOneTeam:Bool = true
@@ -29,9 +29,9 @@ class Game {
     init() {
         self.attacker = character
         self.attacked = character
-        self.pseudo1 = ""
-        self.team1 = Team()
-        self.team2 = Team()
+        self.playerPseudo = ""
+        self.playerTeam = Team()
+        self.opponentTeam = Team()
         
     }
     
@@ -57,13 +57,14 @@ class Game {
             turn += 1
             
         } while !player1Team.teamComposition.isEmpty && !player2Team.teamComposition.isEmpty
-        checkWinnerTeam()
+        player1Team.checkWinnerTeam(player: player2)
+        player2Team.checkWinnerTeam(player: player1)
     }
     
     // We created a function to display each player team's after the creation of teams.
     func displayPlayersTeams() {
         
-        print("Let's start the game, the battle is between the first player :  \(player1.pseudo) and the second player : \(player2.pseudo)")
+        print("Let's start the game, the battle is between the first player : \(player1.pseudo) and the second player : \(player2.pseudo)")
         print("=============================================================")
         
         print("Here is \(player1.pseudo) team's")
@@ -78,39 +79,21 @@ class Game {
     
     func switchTurn() {
         if isPlayerOneTurn  {
-            pseudo1 = player1.pseudo
-            team1 = player1Team
-            team2 = player2Team
+            playerPseudo = player1.pseudo
+            playerTeam = player1Team
+            opponentTeam = player2Team
             
             isPlayerOneTurn = false
             
         } else {
-            pseudo1 = player2.pseudo
-            team1 = player2Team
-            team2 = player1Team
+            playerPseudo = player2.pseudo
+            playerTeam = player2Team
+            opponentTeam = player1Team
             
             isPlayerOneTurn = true
     
         }
     }
-    
-    func selectCharacter(team: Team) -> Characters {
-        var characterSelected = 0
-        repeat{
-           if let choice = readLine(){
-                if let numberChoice = Int(choice) {
-                    if numberChoice >= 1 && numberChoice <= team.teamComposition.count {
-                        characterSelected += 1
-                        //subtract 1 from the choice by restricting the choice so as not to go into the negative nor to exceed the exact count of element in the characterAlive array.
-                        return team.teamComposition[numberChoice - 1]
-                    } else {
-                        print("You pick the wrong number, choose between 1 and \(team.teamComposition.count)")
-                    }
-                }
-            }
-        } while characterSelected < 1
-    }
-
     // We create a fight function.
     func fight() {
         // We create some variables. There values changes during each player turn thanks to a boolean to control who player turn's.
@@ -121,14 +104,14 @@ class Game {
         switchTurn()
         
         print("=============================================================")
-        print("It's your turn \(pseudo1). Please choose your attacker")
-        team1.statsTeam()
+        print("It's your turn \(playerPseudo). Please choose your attacker")
+        playerTeam.statsTeam()
         print("=============================================================")
         print("Choose a number associated with one of your team's characters")
         print("=============================================================")
         
         repeat {
-            let characterSelected = selectCharacter(team: team1)
+            let characterSelected = playerTeam.characterSelection()
             attacker = characterSelected
             print("=============================================================")
             print("You choose your \(characterSelected.className)")
@@ -139,19 +122,19 @@ class Game {
         attackerChoice = 0
         
         print("Which opponent character's would you like to attack ? ")
-        team2.statsTeam()
+        opponentTeam.statsTeam()
         print("=============================================================")
         print("Choose a number associate with one of your opponent team's")
         
         repeat {
-            let characterSelected = selectCharacter(team: team2)
+            let characterSelected = opponentTeam.characterSelection()
             attacked = characterSelected
             print("=============================================================")
             print("You choose your opponent's \(characterSelected.className)")
             print("=============================================================")
-            team1.attackTeam(characterAttacked: attacked, characterAttacker: attacker) // We call the attackTeam function to make the fight.
+            playerTeam.attackTeam(characterAttacked: attacked, characterAttacker: attacker) // We call the attackTeam function to make the fight.
             if attacked.characterHealth <= 0 { // If attacked character health is less or equal than 0 we removed the character to teamComposition array's.
-                team2.teamComposition.remove(at: 0)
+                opponentTeam.teamComposition.remove(at: 0)
             }
             attackedChoice = 1
             
@@ -160,43 +143,4 @@ class Game {
     }
     
     // We created a function to ckeck the winner
-    func checkWinnerTeam() {
-        var gameEnding: Int = 0
-        if player1Team.teamComposition.isEmpty { // If the team is empty we display the winner's pseudo.
-            print("*****************The Winner is \(player2.pseudo)*****************")
-            print("=============================== GAME OVER ===============================")
-            gameEnding = 1
-        }
-        else if player2Team.teamComposition.isEmpty {
-            print("*****************The Winner is \(player1.pseudo)*****************")
-            print("=============================== GAME OVER ===============================")
-            gameEnding = 1
-            
-        }
-        if gameEnding == 1 {
-            var startOrFinish: Int = 0
-            player1Team.teamComposition.removeAll() // We remove all teamComposition to finish the game or start an another.
-            player2Team.teamComposition.removeAll()
-            print("If you want play an other game please enter : 1")
-            print("If you want quit this game game please enter : 2")
-            if let optionChoice = readLine() {
-                if let choice = Int(optionChoice) {
-                    startOrFinish = choice
-                } else {
-                    print("=============================================================")
-                    print("You must enter a valid number !")
-                    print("=============================================================")
-                }
-                switch startOrFinish {
-                case 1:
-                    print("Let's start a new game !")
-                    game.startingMenu()
-                case 2:
-                    print("I hope you enjoyed this game. See you soon !")
-                default:
-                    break
-                }
-            }
-        }
-    }
 }
