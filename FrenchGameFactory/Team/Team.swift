@@ -8,17 +8,17 @@
 import Foundation
 
 class Team {
-    var teamChoose: [Int] = [] // This array permit to know which characters were selected by each players.
+    private var teamChoose: [Int] = [] // This array permit to know which characters were selected by each players.
     var teamComposition: [Characters] = []
-    var uniqueCharacterName: String
-    var allCharactersName: [String] = []
+    private var uniqueCharacterName: String
+    private var allCharactersName: [String] = []
     
     init(){
         self.uniqueCharacterName = ""
     }
     
     // We create a function to print all character description's.
-    func listOfCharacters()  {
+    private func listOfCharacters()  {
         // We create an instance of class's for each character.
         let warrior = Warrior(characterName: "")
         let magus = Magus(characterName: "")
@@ -62,7 +62,7 @@ class Team {
     }
     
     // We create a function that will allow players to choose a character name's when they choose this character for there team.
-    func createCharacterName(allCharacterName: [String]) -> String {
+    private func createCharacterName(allCharacterName: [String]) -> String {
         var characterName = ""
         repeat {
             print("Please choose a name for your character : ")
@@ -131,7 +131,7 @@ class Team {
     }
     
     // We create a function to permit players to select each character for their team.
-    func teamCharacterSelection(numberChoice: Int) -> Characters {
+    private func teamCharacterSelection(numberChoice: Int) -> Characters {
         let allCharacters: [Characters] = [Warrior(characterName: ""), Magus(characterName: ""), Paladin(characterName: ""), Druid(characterName: ""), Rogue(characterName: "")]
         
         var characterSelected = 0

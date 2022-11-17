@@ -8,21 +8,21 @@
 import Foundation
 class Game {
     
-    var player1 = Player(player: "Player 1")
-    var player2 = Player(player: "Player 2")
-    var player1Team = Team()
-    var player2Team = Team()
+    private var player1 = Player(player: "Player 1")
+    private var player2 = Player(player: "Player 2")
+    private var player1Team = Team()
+    private var player2Team = Team()
     
     // We control this 2 optional variable with a guard let inside the fight function.
-    var attackerCharacter: Characters?
-    var attackedCharacter: Characters?
+    private var attackerCharacter: Characters?
+    private var attackedCharacter: Characters?
     
-    var playerPseudo: String
+    private var playerPseudo: String
     
-    var playerTeam:Team
-    var opponentTeam:Team
+    private var playerTeam:Team
+    private var opponentTeam:Team
     
-    var isPlayerOneTurn:Bool = true // We create this variable to allow the change of turn.
+    private var isPlayerOneTurn:Bool = true // We create this variable to allow the change of turn.
     
     init() {
         self.playerPseudo = ""
@@ -58,7 +58,7 @@ class Game {
     }
     
     // We created a function to display each player team's after the creation of teams.
-    func displayPlayersTeams() {
+    private func displayPlayersTeams() {
         
         print("Let's start the game, the battle is between the first player : \(player1.pseudo) and the second player : \(player2.pseudo)")
         print("=============================================================")
@@ -74,7 +74,7 @@ class Game {
     }
     
     // We create this function for the turn change.
-    func switchPlayersTurn() {
+    private func switchPlayersTurn() {
         if isPlayerOneTurn  { // First case if is the playerOneTurn
             playerPseudo = player1.pseudo
             playerTeam = player1Team
@@ -91,7 +91,7 @@ class Game {
         }
     }
     // We create a fight function.
-    func fight() {
+    private func fight() {
         
         var attackerChoice: Int = 0
         var attackedChoice: Int = 0

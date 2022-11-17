@@ -8,7 +8,7 @@
 import Foundation
 class Player {
     
-    var player: String
+    private var player: String
     var pseudo: String
     
     init(player: String) {

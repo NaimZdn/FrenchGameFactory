@@ -85,7 +85,7 @@ class Characters {
     }
     
     // We create a function for the druid's talent
-    func healCharacter(characterHealer: Characters, playerTeam: Team) {
+    private func healCharacter(characterHealer: Characters, playerTeam: Team) {
         var healing: Int = 0
         repeat {
             let characterSelected = playerTeam.characterSelection() // We call the function to permit player to select a character who receive the heal.
