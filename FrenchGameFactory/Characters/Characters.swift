@@ -8,7 +8,6 @@
 import Foundation
 
 class Characters {
-    
     var className: String;
     var characterDescription: String;
     var characterName: String;
@@ -40,14 +39,14 @@ class Characters {
         self.talent = talent
     }
     
-    func attackTeam(characterAttacked: Characters, characterAttacker: Characters, playerTeam: Team) {
-        
+    // We create a function to make the attacks during the fight.
+    func attack(characterAttacked: Characters, characterAttacker: Characters, playerTeam: Team) {
         if characterAttacked.characterHealth <= 0 { // If the attacked character lifepoint is less than 0, we print an error message because he is dead.
             print("=============================================================")
             print("This character is dead")
             print("=============================================================")
         } else {
-            let randomActivation = Int.random(in: 0..<3) //We set a percentage so that the character has a 33% chance to activate his talent.
+            let randomActivation = Int.random(in: 0..<3) // We set a percentage so that the character has a 33% chance to activate his talent.
             if randomActivation == 0 {
                 if characterAttacked.className == "Warrior 🛡" { // If the character attacked is a Warrior his talent is reducing damage to 0.5 point.
                     print("=============================================================")
@@ -61,7 +60,7 @@ class Characters {
                     print("Oh your \(characterAttacker.className) active his talent, you can choose a character to heal : ")
                     print("=============================================================")
                     playerTeam.statsTeam()
-                    healingTeamCharacter(charactersHealer: characterAttacker, playerTeam: playerTeam)
+                    healCharacter(characterHealer: characterAttacker, playerTeam: playerTeam)
                     characterAttacked.characterHealth -= characterAttacker.weaponDamage
                     
                 } else if characterAttacker.className != "Warrior 🛡"{ // Talent activation for the other character.
@@ -84,14 +83,15 @@ class Characters {
         }
     }
     
-    func healingTeamCharacter(charactersHealer: Characters, playerTeam: Team) {
+    // We create a function for the druid's talent
+    func healCharacter(characterHealer: Characters, playerTeam: Team) {
         var healing: Int = 0
         repeat {
             let characterSelected = playerTeam.characterSelection()
             print("=============================================================")
-            print("Your \(characterSelected.className) gain 1 lifepoint")
+            print("Your \(characterSelected.className) gain \(characterSelected.talent) lifepoint")
             print("=============================================================")
-            characterSelected.characterHealth += charactersHealer.talent
+            characterSelected.characterHealth += characterHealer.talent
             healing = 1
         } while healing != 1
     }
