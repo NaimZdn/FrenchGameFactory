@@ -71,6 +71,8 @@ class Characters {
                     attackedCharacter.characterHealth -= attackerCharacter.weaponDamage
                     attackedCharacter.characterHealth -= attackerCharacter.talent
                     
+                } else {
+                    attackedCharacter.characterHealth -= attackerCharacter.weaponDamage
                 }
                 
             } else { // If the talent isn't activate.
