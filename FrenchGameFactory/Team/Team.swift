@@ -8,10 +8,10 @@
 import Foundation
 
 class Team {
-    var teamChoose: [Int] = []
+    var teamChoose: [Int] = [] // This array permit to know which characters were selected by each players.
     var teamComposition: [Characters] = []
     var uniqueCharacterName: String
-    var allCharactersName: [String] = [];
+    var allCharactersName: [String] = []
     
     init(){
         self.uniqueCharacterName = ""
@@ -89,7 +89,7 @@ class Team {
                     print("=============================================================")
                     print(quoteArray[randomNumber])
                     print("=============================================================")
-        
+                    
                     uniqueCharacterName = characterName
                 }
             }
@@ -97,6 +97,7 @@ class Team {
         return uniqueCharacterName
     }
     
+    // We create a function to permit players to create their team.
     func createYourTeam() {
         var yourChoice = 0
         repeat {
@@ -119,8 +120,8 @@ class Team {
                     print("=============================================================")
                     print("You already choose this character, please choose an another")
                     print("=============================================================")
-                }else {
-                    let characterChoose = teamCharacterSelection(numberChoice: yourChoice)
+                } else {
+                    let characterChoose = teamCharacterSelection(numberChoice: yourChoice) // We call the function for select a character inside an array with all characters available
                     teamChoose.append(yourChoice)
                     teamComposition.append(characterChoose)
                     
@@ -129,6 +130,7 @@ class Team {
         } while teamComposition.count != 3
     }
     
+    // We create a function to permit players to select each character for their team.
     func teamCharacterSelection(numberChoice: Int) -> Characters {
         let allCharacters: [Characters] = [Warrior(characterName: ""), Magus(characterName: ""), Paladin(characterName: ""), Druid(characterName: ""), Rogue(characterName: "")]
         
@@ -137,25 +139,26 @@ class Team {
         repeat{
             if numberChoice >= 1 && numberChoice <= allCharacters.count {
                 characterSelected += 1
-                //subtract 1 from the choice by restricting the choice so as not to go into the negative nor to exceed the exact count of element in the characterAlive array.
+                // We subtract 1 from the choice by restricting the choice so as not to go into the negative nor to exceed the exact count of element in the allCharacters array.
                 let characterChosen = allCharacters[numberChoice - 1]
-                characterChosen.characterName = createCharacterName(allCharacterName: [])
-
+                characterChosen.characterName = createCharacterName(allCharacterName: []) // We call the function create CharacterName to permit players to select a name for their characters.
+                
                 return characterChosen
             } else {
                 print("You pick the wrong number, choose between 1 and \(allCharacters.count)")
             }
         } while characterSelected < 3
     }
-
+    
+    // We create a function to permit players to select their character for attack or heal.
     func characterSelection() -> Characters {
         var characterSelected = 0
         repeat{
-           if let yourChosenData = readLine(){
+            if let yourChosenData = readLine(){
                 if let characterChosen = Int(yourChosenData) {
                     if characterChosen >= 1 && characterChosen <= teamComposition.count {
                         characterSelected += 1
-                        //subtract 1 from the choice by restricting the choice so as not to go into the negative nor to exceed the exact count of element in the characterAlive array.
+                        // We subtract 1 from the choice by restricting the choice so as not to go into the negative nor to exceed the exact count of element in the teamComposition array.
                         return teamComposition[characterChosen - 1]
                     } else {
                         print("=============================================================")
@@ -170,7 +173,7 @@ class Team {
             }
         } while characterSelected < 1
     }
-
+    
     // We create a statsTeam function to display the character team stat's to the start of the battle and in each turn.
     func statsTeam() {
         var number: Int = 0
@@ -181,6 +184,7 @@ class Team {
         }
     }
     
+    // We create a function to check which player won that game.
     func checkWinnerTeam(player: Player) {
         var gameEnding: Int = 0
         if teamComposition.isEmpty { // If the team is empty we display the winner's pseudo.

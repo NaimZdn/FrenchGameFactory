@@ -13,6 +13,7 @@ class Game {
     var player1Team = Team()
     var player2Team = Team()
     
+    // We control this 2 optional variable with a guard let inside the fight function.
     var attackerCharacter: Characters?
     var attackedCharacter: Characters?
     
@@ -21,8 +22,7 @@ class Game {
     var playerTeam:Team
     var opponentTeam:Team
     
-    var isPlayerOneTurn:Bool = true
-    var isPlayerOneTeam:Bool = true
+    var isPlayerOneTurn:Bool = true // We create this variable to allow the change of turn.
     
     init() {
         self.playerPseudo = ""
@@ -73,21 +73,21 @@ class Game {
         player2Team.statsTeam()
     }
     
+    // We create this function for the turn change.
     func switchPlayersTurn() {
-        if isPlayerOneTurn  {
+        if isPlayerOneTurn  { // First case if is the playerOneTurn
             playerPseudo = player1.pseudo
             playerTeam = player1Team
             opponentTeam = player2Team
             
             isPlayerOneTurn = false
             
-        } else {
+        } else { // Second case if is the playerTwoTurn
             playerPseudo = player2.pseudo
             playerTeam = player2Team
             opponentTeam = player1Team
             
             isPlayerOneTurn = true
-    
         }
     }
     // We create a fight function.
@@ -96,7 +96,7 @@ class Game {
         var attackerChoice: Int = 0
         var attackedChoice: Int = 0
         
-        switchPlayersTurn()
+        switchPlayersTurn() // Before each fight we switch the player's turn.
         
         print("=============================================================")
         print("It's your turn \(playerPseudo). Please choose your attacker")
@@ -106,15 +106,15 @@ class Game {
         print("=============================================================")
         
         attackerCharacter = playerTeam.characterSelection()
-        guard let attackerCharacter = attackerCharacter else {return}
+        guard let attackerCharacter = attackerCharacter else {return} // We use a guard let method because most of the code in this function depends on the existence of attackerCharacter variable. If no characterAreSelected we can't execut the rest of this function.
         
         repeat {
-
+            
             print("=============================================================")
             print("You choose your \(attackerCharacter.className)")
             print("=============================================================")
             attackerChoice = 1
-                  
+            
         } while attackerChoice != 1
         attackerChoice = 0
         
@@ -124,7 +124,7 @@ class Game {
         print("Choose a number associate with one of your opponent team's")
         
         attackedCharacter = opponentTeam.characterSelection()
-        guard let attackedCharacter = attackedCharacter else {return}
+        guard let attackedCharacter = attackedCharacter else {return} // We use a guard let method because most of the code in this function depends on the existence of attackedCharacter variable. If no characterAreSelected we can't execut the rest of this function.
         
         repeat {
             
@@ -135,7 +135,7 @@ class Game {
             if attackedCharacter.characterHealth <= 0 { // If attacked character health is less or equal than 0 we removed the character to teamComposition array's.
                 opponentTeam.teamComposition.removeAll{(character) -> Bool in
                     return character.className == attackedCharacter.className ? true : false
-                }
+                } // If attackedCharacter are now 0 lifepoint and it is in opponent teamComposition we remove this.
             }
             attackedChoice = 1
             

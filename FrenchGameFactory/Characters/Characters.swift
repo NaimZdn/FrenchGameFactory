@@ -16,7 +16,8 @@ class Characters {
     var talent: Double;
     var characterHealth: Double {
         didSet {
-            if oldValue > characterHealth { // We display lifepoints after the fight.
+            // We display lifepoints after the fight.
+            if oldValue > characterHealth {
                 print("Your opponent \(className) has now \(characterHealth) lifepoints !")
                 print("=============================================================")
                 
@@ -87,7 +88,7 @@ class Characters {
     func healCharacter(characterHealer: Characters, playerTeam: Team) {
         var healing: Int = 0
         repeat {
-            let characterSelected = playerTeam.characterSelection()
+            let characterSelected = playerTeam.characterSelection() // We call the function to permit player to select a character who receive the heal.
             print("=============================================================")
             print("Your \(characterSelected.className) gain \(characterSelected.talent) lifepoint")
             print("=============================================================")
