@@ -8,5 +8,5 @@
 import Foundation
 
 var game = Game()
-game.startingMenu()
+game.playTheGame()
 

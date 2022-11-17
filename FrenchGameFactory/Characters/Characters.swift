@@ -40,44 +40,44 @@ class Characters {
     }
     
     // We create a function to make the attacks during the fight.
-    func attack(characterAttacked: Characters, characterAttacker: Characters, playerTeam: Team) {
-        if characterAttacked.characterHealth <= 0 { // If the attacked character lifepoint is less than 0, we print an error message because he is dead.
+    func attack(attackedCharacter: Characters, attackerCharacter: Characters, playerTeam: Team) {
+        if attackedCharacter.characterHealth <= 0 { // If the attacked character lifepoint is less than 0, we print an error message because he is dead.
             print("=============================================================")
             print("This character is dead")
             print("=============================================================")
         } else {
             let randomActivation = Int.random(in: 0..<3) // We set a percentage so that the character has a 33% chance to activate his talent.
             if randomActivation == 0 {
-                if characterAttacked.className == "Warrior 🛡" { // If the character attacked is a Warrior his talent is reducing damage to 0.5 point.
+                if attackedCharacter.className == "Warrior 🛡" { // If the character attacked is a Warrior his talent is reducing damage to 0.5 point.
                     print("=============================================================")
                     print("Oh ! Opponent Warrior's 🛡 make a shield for reduce your attack")
                     print("=============================================================")
-                    let damageReduce: Double = characterAttacker.weaponDamage - characterAttacked.talent
-                    characterAttacked.characterHealth -= damageReduce
+                    let damageReduce: Double = attackerCharacter.weaponDamage - attackedCharacter.talent
+                    attackedCharacter.characterHealth -= damageReduce
                     
-                } else if characterAttacker.className == "Druid 🦌" { //  If the character attacker is a Druid his talent healed a team character's choosing by the player with healingteam function.
+                } else if attackerCharacter.className == "Druid 🦌" { //  If the character attacker is a Druid his talent healed a team character's choosing by the player with healingteam function.
                     print("=============================================================")
-                    print("Oh your \(characterAttacker.className) active his talent, you can choose a character to heal : ")
+                    print("Oh your \(attackerCharacter.className) active his talent, you can choose a character to heal : ")
                     print("=============================================================")
                     playerTeam.statsTeam()
-                    healCharacter(characterHealer: characterAttacker, playerTeam: playerTeam)
-                    characterAttacked.characterHealth -= characterAttacker.weaponDamage
+                    healCharacter(characterHealer: attackerCharacter, playerTeam: playerTeam)
+                    attackedCharacter.characterHealth -= attackerCharacter.weaponDamage
                     
-                } else if characterAttacker.className != "Warrior 🛡"{ // Talent activation for the other character.
+                } else if attackerCharacter.className != "Warrior 🛡"{ // Talent activation for the other character.
                     print("=============================================================")
-                    print("Oh ! Your \(characterAttacker.className) active his talent")
+                    print("Oh ! Your \(attackerCharacter.className) active his talent")
                     print("=============================================================")
-                    characterAttacked.characterHealth -= characterAttacker.weaponDamage
-                    characterAttacked.characterHealth -= characterAttacker.talent
+                    attackedCharacter.characterHealth -= attackerCharacter.weaponDamage
+                    attackedCharacter.characterHealth -= attackerCharacter.talent
                     
                 }
                 
             } else { // If the talent isn't activate.
-                characterAttacked.characterHealth -= characterAttacker.weaponDamage
+                attackedCharacter.characterHealth -= attackerCharacter.weaponDamage
             }
-            if characterAttacked.characterHealth <= 0 { // If there lifepoints of the character attacked is reduce to 0, we can print this following message.
+            if attackedCharacter.characterHealth <= 0 { // If there lifepoints of the character attacked is reduce to 0, we can print this following message.
                 print("=============================================================")
-                print("Congratulation, you kill his \(characterAttacked.className)")
+                print("Congratulation, you kill his \(attackedCharacter.className)")
                 print("=============================================================")
             }
         }
