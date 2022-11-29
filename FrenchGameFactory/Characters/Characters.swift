@@ -49,32 +49,9 @@ class Characters {
         } else {
             let randomActivation = Int.random(in: 0..<3) // We set a percentage so that the character has a 33% chance to activate his talent.
             if randomActivation == 0 {
-                if attackedCharacter.className == "Warrior 🛡" { // If the character attacked is a Warrior his talent is reducing damage to 0.5 point.
-                    print("=============================================================")
-                    print("Oh ! Opponent Warrior's 🛡 make a shield for reduce your attack")
-                    print("=============================================================")
-                    let damageReduce: Double = attackerCharacter.weaponDamage - attackedCharacter.talent
-                    attackedCharacter.characterHealth -= damageReduce
-                    
-                } else if attackerCharacter.className == "Druid 🦌" { //  If the character attacker is a Druid his talent healed a team character's choosing by the player with healingteam function.
-                    print("=============================================================")
-                    print("Oh your \(attackerCharacter.className) active his talent, you can choose a character to heal : ")
-                    print("=============================================================")
-                    playerTeam.statsTeam()
-                    healCharacter(characterHealer: attackerCharacter, playerTeam: playerTeam)
-                    attackedCharacter.characterHealth -= attackerCharacter.weaponDamage
-                    
-                } else if attackerCharacter.className != "Warrior 🛡"{ // Talent activation for the other character.
-                    print("=============================================================")
-                    print("Oh ! Your \(attackerCharacter.className) active his talent")
-                    print("=============================================================")
-                    attackedCharacter.characterHealth -= attackerCharacter.weaponDamage
-                    attackedCharacter.characterHealth -= attackerCharacter.talent
-                    
-                } else {
-                    attackedCharacter.characterHealth -= attackerCharacter.weaponDamage
-                }
-                
+                    // Talent activation for the other character.
+                    talentActivation(attackedCharacter: attackedCharacter, attackerCharacter: attackerCharacter, playerTeam: playerTeam)
+    
             } else { // If the talent isn't activate.
                 attackedCharacter.characterHealth -= attackerCharacter.weaponDamage
             }
@@ -86,8 +63,17 @@ class Characters {
         }
     }
     
+    func talentActivation(attackedCharacter: Characters, attackerCharacter: Characters, playerTeam: Team) {
+        print("=============================================================")
+        print("Oh ! Your \(attackerCharacter.className) active his talent")
+        print("=============================================================")
+        attackedCharacter.characterHealth -= attackerCharacter.weaponDamage
+        attackedCharacter.characterHealth -= attackerCharacter.talent
+    }
+    
+    
     // We create a function for the druid's talent
-    private func healCharacter(characterHealer: Characters, playerTeam: Team) {
+     func healCharacter(characterHealer: Characters, playerTeam: Team) {
         var healing: Int = 0
         repeat {
             let characterSelected = playerTeam.characterSelection() // We call the function to permit player to select a character who receive the heal.
