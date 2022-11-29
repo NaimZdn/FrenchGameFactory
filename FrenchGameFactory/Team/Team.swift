@@ -196,6 +196,7 @@ class Team {
                 if gameEnding == 1 {
                     var startOrFinish: Int = 0
                     teamComposition.removeAll() // We remove all teamComposition to finish the game or start an another.
+                    teamChoose.removeAll()
                     print("If you want play an other game please enter : 1")
                     print("If you want quit this game game please enter : 2")
                     if let yourChosenData = readLine() {
