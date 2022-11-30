@@ -41,7 +41,7 @@ class Characters {
     }
     
     // We create a function to make the attacks during the fight.
-    func attack(attackedCharacter: Characters, attackerCharacter: Characters, playerTeam: Team) {
+    func attack(attackedCharacter: Characters, playerTeam: Team) {
         if attackedCharacter.characterHealth <= 0 { // If the attacked character lifepoint is less than 0, we print an error message because he is dead.
             print("=============================================================")
             print("This character is dead")
@@ -49,11 +49,14 @@ class Characters {
         } else {
             let randomActivation = Int.random(in: 0..<3) // We set a percentage so that the character has a 33% chance to activate his talent.
             if randomActivation == 0 {
-                    // Talent activation for the other character.
-                    talentActivation(attackedCharacter: attackedCharacter, attackerCharacter: attackerCharacter, playerTeam: playerTeam)
-    
+                // Talent activation for the other character.
+                talentActivation(attackedCharacter: attackedCharacter, playerTeam: playerTeam)
+                
+            } else if randomActivation == 1 && attackedCharacter.className == "Warrior 🛡" {
+                makeShield(attackedCharacter: attackedCharacter)
+                
             } else { // If the talent isn't activate.
-                attackedCharacter.characterHealth -= attackerCharacter.weaponDamage
+                attackedCharacter.characterHealth -= weaponDamage
             }
             if attackedCharacter.characterHealth <= 0 { // If there lifepoints of the character attacked is reduce to 0, we can print this following message.
                 print("=============================================================")
@@ -63,25 +66,21 @@ class Characters {
         }
     }
     
-    func talentActivation(attackedCharacter: Characters, attackerCharacter: Characters, playerTeam: Team) {
+    func talentActivation(attackedCharacter: Characters, playerTeam: Team) {
         print("=============================================================")
-        print("Oh ! Your \(attackerCharacter.className) active his talent")
+        print("Oh ! Your \(className) active his talent")
         print("=============================================================")
-        attackedCharacter.characterHealth -= attackerCharacter.weaponDamage
-        attackedCharacter.characterHealth -= attackerCharacter.talent
+        attackedCharacter.characterHealth -= weaponDamage
+        attackedCharacter.characterHealth -= talent
+    
     }
     
-    
-    // We create a function for the druid's talent
-     func healCharacter(characterHealer: Characters, playerTeam: Team) {
-        var healing: Int = 0
-        repeat {
-            let characterSelected = playerTeam.characterSelection() // We call the function to permit player to select a character who receive the heal.
-            print("=============================================================")
-            print("Your \(characterSelected.className) gain \(characterSelected.talent) lifepoint")
-            print("=============================================================")
-            characterSelected.characterHealth += characterHealer.talent
-            healing = 1
-        } while healing != 1
+    func makeShield(attackedCharacter: Characters) {
+        print("=============================================================")
+        print("Oh ! Opponent Warrior's 🛡 make a shield for reduce your attack")
+        print("=============================================================")
+        let damageReduce: Double = weaponDamage - attackedCharacter.talent
+        attackedCharacter.characterHealth -= damageReduce
+        
     }
 }
