@@ -131,7 +131,7 @@ class Game {
             print("=============================================================")
             print("You choose your opponent's \(attackedCharacter.className)")
             print("=============================================================")
-            attackedCharacter.attack(attackedCharacter: attackedCharacter, attackerCharacter: attackerCharacter, playerTeam: playerTeam) // We call the attackTeam function to make the fight.
+            attackerCharacter.attack(attackedCharacter: attackedCharacter, playerTeam: playerTeam) // We call the attackTeam function to make the fight.
             if attackedCharacter.characterHealth <= 0 { // If attacked character health is less or equal than 0 we removed the character to teamComposition array's.
                 opponentTeam.teamComposition.removeAll{(character) -> Bool in
                     return character.className == attackedCharacter.className ? true : false
